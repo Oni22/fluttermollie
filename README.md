@@ -52,9 +52,9 @@ Now we need to setup a few things for iOS and Android.
 
 ***ANDROID***
 
-1. Setup your scheme in AndroidManifest.xml under android > app > src > main > AndroidManifest.xml. This is needed because the checkout process will be done in the browser. After the checkout is done the browser will switch back to your app.
+1. Setup your scheme in AndroidManifest.xml under android > app > src > main > AndroidManifest.xml. This is needed because if the user starts the checkout process this plugin will switch to the browser and will open the checkout page of Mollie. After the checkout is done the browser will switch back to your app. The scheme will help the browser to open the correct app.
 
-Modify your AndroidManifest.xml like the following. Be sure that you use an unique host and scheme name. The host and scheme are important in the next steps. We use in this example "payment-return" and "mollie".
+Modify your AndroidManifest.xml like the following. Be sure that you use an unique host and scheme name. The host and scheme are important in the next steps. We will use "payment-return" as host and "mollie" as scheme in this example.
 
 ```
 <intent-filter>
