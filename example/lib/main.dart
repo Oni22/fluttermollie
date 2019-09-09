@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:mollie/mollie.dart';
 import 'package:http/http.dart' as http;
-import 'package:mollie/molliecheckout.dart';
 
 void main() => runApp(MaterialApp(
     initialRoute: "home",
@@ -20,7 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
 
   @override
   void initState() {

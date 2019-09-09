@@ -3,6 +3,7 @@ export 'mollieaddress.dart';
 export 'mollieorder.dart';
 export 'mollieproduct.dart';
 export 'mollieamount.dart';
+export 'package:mollie/molliecheckout.dart';
 
 import 'dart:async';
 import 'package:flutter/services.dart';
