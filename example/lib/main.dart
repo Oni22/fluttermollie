@@ -7,11 +7,7 @@ import 'package:http/http.dart' as http;
 
 void main() => runApp(MaterialApp(
     initialRoute: "home",
-    routes: {
-      "home": (context) => MyApp(),
-      "done": (context) => Testy()
-    }
-));
+    routes: {"home": (context) => MyApp(), "done": (context) => Testy()}));
 
 class MyApp extends StatefulWidget {
   @override
@@ -19,17 +15,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
   }
 
   MollieOrderRequest o = new MollieOrderRequest(
-      amount: MollieAmount(
-          value: "1396.00",
-          currency: "EUR"
-      ),
+      amount: MollieAmount(value: "1396.00", currency: "EUR"),
       orderNumber: "900",
       redirectUrl: "molli://payment-return",
       locale: "de_DE",
@@ -66,7 +58,8 @@ class _MyAppState extends State<MyApp> {
           sku: '5702016116977',
           name: 'LEGO 42083 Bugatti Chiron',
           productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
-          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          imageUrl:
+              'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
           quantity: 2,
           vatRate: '21.00',
           unitPrice: MollieAmount(
@@ -91,7 +84,8 @@ class _MyAppState extends State<MyApp> {
           sku: '5702016116977',
           name: 'LEGO 42083 Bugatti Chiron',
           productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
-          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          imageUrl:
+              'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
           quantity: 2,
           vatRate: '21.00',
           unitPrice: MollieAmount(
@@ -111,16 +105,26 @@ class _MyAppState extends State<MyApp> {
             value: '121.14',
           ),
         )
-      ]
+      ]);
 
-  );
+
+  Future<void> createOrder(MollieOrderRequest order) async{
+
+    var res = await Mollie.createOrder("http://blackboxshisha.herokuapp.com/mollie/create/order", order);
+
+    Mollie.startPayment(res.checkoutUrl);
+
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return MollieCheckout(
-      createOrderUrl: "http://blackboxshisha.herokuapp.com/mollie/create/order",
       order: o,
+      onMethodSelected: (order) {
+
+        createOrder(order);
+
+      },
       useCredit: true,
       usePaypal: true,
       useSepa: true,
@@ -129,37 +133,29 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Testy extends StatelessWidget{
-
+class Testy extends StatelessWidget {
   final String id;
 
   Testy({this.id});
 
-  Future<String> orderStatus() async{
-
-    var res = await http.get("http://blackboxshisha.herokuapp.com/mollie/create/order/" + id);
+  Future<String> orderStatus() async {
+    var res = await http
+        .get("http://blackboxshisha.herokuapp.com/mollie/create/order/" + id);
 
     print(res.body);
     dynamic d = json.decode(res.body);
     return d["status"];
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-
     // TODO: implement build
     return Scaffold(
-      body: Center(
-        child: Text("hallo"),
-      )
-    );
+        body: Center(
+      child: Text(Mollie.currentMollieOrder.id),
+    ));
   }
-
 }
-
 
 //FutureBuilder(
 //future: auth(),

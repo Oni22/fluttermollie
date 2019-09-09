@@ -1,3 +1,9 @@
-## 0.0.1
+## 0.5.1
 
-* TODO: Describe initial release.
+* Update readme's
+* added Molli.currentMollieOrder for getting data after checkout process
+
+## 0.5.0
+
+* First release
+

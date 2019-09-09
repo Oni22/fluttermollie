@@ -1,6 +1,4 @@
-
 class MollieAddress {
-
   String organizationName;
   String streetAndNumber;
   String city;
@@ -13,21 +11,20 @@ class MollieAddress {
   String email;
   String phone;
 
-  MollieAddress({
-    this.organizationName,
-    this.streetAndNumber,
-    this.city,
-    this.region,
-    this.postalCode,
-    this.country,
-    this.title,
-    this.givenName,
-    this.familyName,
-    this.email,
-    this.phone
-  });
+  MollieAddress(
+      {this.organizationName,
+      this.streetAndNumber,
+      this.city,
+      this.region,
+      this.postalCode,
+      this.country,
+      this.title,
+      this.givenName,
+      this.familyName,
+      this.email,
+      this.phone});
 
-  dynamic toMap(){
+  dynamic toMap() {
     return {
       "organizationName": organizationName,
       "streetAndNumber": streetAndNumber,
@@ -43,8 +40,7 @@ class MollieAddress {
     };
   }
 
-  MollieAddress.build(dynamic data){
-
+  MollieAddress.build(dynamic data) {
     organizationName = data["organizationName"];
     streetAndNumber = data["streetAndNumber"];
     city = data["city"];
@@ -56,7 +52,5 @@ class MollieAddress {
     familyName = data["familyName"];
     email = data["email"];
     phone = data["phone"];
-
   }
-
 }

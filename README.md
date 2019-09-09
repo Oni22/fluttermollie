@@ -58,15 +58,15 @@ Modify your AndroidManifest.xml like the following. Be sure that you use an uniq
 
 ```
 <intent-filter>
-                <data
-                    android:host="payment-return"
-                    android:scheme="mollie" />
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
+     <data
+       android:host="payment-return"
+       android:scheme="mollie" />
+     <action android:name="android.intent.action.MAIN"/>
+     <category android:name="android.intent.category.LAUNCHER"/>
+     <action android:name="android.intent.action.VIEW" />
+     <category android:name="android.intent.category.DEFAULT" />
+     <category android:name="android.intent.category.BROWSABLE" />
+</intent-filter>
 
 ```
 
@@ -214,6 +214,7 @@ import 'package:mollie/mollie.dart';
 2. Build your Widget and implement the MolliCheckout widget. 
 
 ```dart
+
 import 'package:mollie/mollie.dart';
 
 class MyApp extends StatefulWidget {

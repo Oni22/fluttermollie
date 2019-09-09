@@ -1,11 +1,9 @@
-
 import 'package:mollie/mollieaddress.dart';
 import 'package:mollie/mollieamount.dart';
 import 'package:mollie/mollieproduct.dart';
 import 'dart:convert';
 
 class MollieOrderRequest {
-
   MollieAmount amount;
   MollieAddress shippingAddress;
   MollieAddress billingAddress;
@@ -18,50 +16,44 @@ class MollieOrderRequest {
   String method;
   String orderNumber;
 
-  MollieOrderRequest({
-    this.amount,
-    this.billingAddress,
-    this.shippingAddress,
-    this.metaData,
-    this.consumerDateOfBirth,
-    this.locale,
-    this.webhookUrl,
-    this.redirectUrl,
-    this.products,
-    this.method,
-    this.orderNumber
-});
+  MollieOrderRequest(
+      {this.amount,
+      this.billingAddress,
+      this.shippingAddress,
+      this.metaData,
+      this.consumerDateOfBirth,
+      this.locale,
+      this.webhookUrl,
+      this.redirectUrl,
+      this.products,
+      this.method,
+      this.orderNumber});
 
-  dynamic toJson(){
+  dynamic toJson() {
+    List<dynamic> productMaps = [];
 
-   List<dynamic> productMaps = [];
+    for (MollieProductRequest p in products) {
+      print(p.toMap());
+      productMaps.add(p.toMap());
+    }
 
-   for(MollieProductRequest p in products){
-     print(p.toMap());
-     productMaps.add(p.toMap());
-   }
-
-   return json.encode({
-
-     "amount": amount.toMap(),
-     "billingAddress": billingAddress.toMap(),
-     "shippingAddress": shippingAddress.toMap(),
-     //"metaData": metaData,
-     "consumerDateOfBirth": consumerDateOfBirth,
-     "locale": locale,
-     "redirectUrl": redirectUrl,
-     "webhookUrl": webhookUrl,
-     "orderNumber": orderNumber,
-     "method": method,
-     "lines": productMaps
-
-   });
+    return json.encode({
+      "amount": amount.toMap(),
+      "billingAddress": billingAddress.toMap(),
+      "shippingAddress": shippingAddress.toMap(),
+      //"metaData": metaData,
+      "consumerDateOfBirth": consumerDateOfBirth,
+      "locale": locale,
+      "redirectUrl": redirectUrl,
+      "webhookUrl": webhookUrl,
+      "orderNumber": orderNumber,
+      "method": method,
+      "lines": productMaps
+    });
   }
-
 }
 
 class MollieOrderResponse {
-
   String id;
   MollieAmount amount;
   MollieAddress shippingAddress;
@@ -77,11 +69,11 @@ class MollieOrderResponse {
   String method;
   String orderNumber;
 
-  MollieOrderResponse.build(dynamic data){
-
+  MollieOrderResponse.build(dynamic data) {
     id = data["id"];
 
-    amount = MollieAmount(currency: data["amount"]["currency"],value: data["amount"]["value"]);
+    amount = MollieAmount(
+        currency: data["amount"]["currency"], value: data["amount"]["value"]);
 
     shippingAddress = MollieAddress.build(data["shippingAddress"]);
     billingAddress = MollieAddress.build(data["billingAddress"]);
@@ -94,10 +86,8 @@ class MollieOrderResponse {
     redirectUrl = data["redirectUrl"];
     webhookUrl = data["webhookUrl"];
 
-    for(int i = 0; i < data["lines"].length; i++){
-
+    for (int i = 0; i < data["lines"].length; i++) {
       products.add(new MollieProductResponse.build(data["lines"][i]));
-
     }
 
     status = data["status"];
@@ -105,7 +95,5 @@ class MollieOrderResponse {
     orderNumber = data["orderNumber"];
 
     checkoutUrl = data["_links"]["checkout"]["href"];
-
   }
-
 }
