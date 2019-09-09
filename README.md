@@ -213,8 +213,6 @@ import 'package:mollie/mollie.dart';
 
 2. Build your Widget and implement the MolliCheckout widget. 
 
-```dart 
-
 ```dart
 import 'package:mollie/mollie.dart';
 
