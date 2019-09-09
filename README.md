@@ -409,11 +409,12 @@ Cheat Sheet:
 
 File | Scheme | Host | RedirectUrl
 --- | --- | --- | ---
-AndroidManifest | "mollie"  | "payment-return"| mollie://payment-return
-Info.plist   | "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
+AndroidManifest | android:scheme="mollie"  | android:host="payment-return"| mollie://payment-return
+Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
 
 
-Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
+
+6. Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
 
 Currently supported payment methods:
 
