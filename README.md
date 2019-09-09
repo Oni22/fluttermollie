@@ -400,22 +400,20 @@ class _MyAppState extends State<MyApp> {
 );
 
 ```
+
 The redirectUrl should follow this pattern scheme://host. For our example it should be mollie://payment-return.
 
 Cheat Sheet:
 
-***AndroidManifest***
-android:host is HOST (should be same as in ios)
-android:scheme is SCHEME (should be same as in ios)
+(We use mollie and payment-return in this example)
 
-***Info.plist***
-URL Scheme is SCHEME (should be same as in android)
-URL Identifier is NOT HOST
-URL Identifier is appBundleId (com.yourcompany.appname)
-HOST will be set up in AppDelegate.swift see ios Part at the top (should be same as in android) 
+File | Scheme | Host | RedirectUrl
+--- | --- | --- | ---
+AndroidManifest | "mollie"  | "payment-return"| mollie://payment-return
+Info.plist   | "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
 
 
-Optionaly you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
+Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
 
 Currently supported payment methods:
 
