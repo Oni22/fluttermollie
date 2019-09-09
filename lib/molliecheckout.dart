@@ -1,5 +1,10 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'mollie.dart';
+import 'mollieorder.dart';
 
 class CheckoutStyle {
   Color buttonColor;
@@ -16,9 +21,13 @@ class MollieCheckout extends StatefulWidget{
   final bool useCredit;
   final bool usePaypal;
   final CheckoutStyle style;
+  final MollieOrderRequest order;
+  final String createOrderUrl;
   final Function(String) onMethodSelected;
 
   MollieCheckout({
+    @required this.createOrderUrl,
+    @required this.order,
     this.style,
     this.useScaffold = true,
     this.onMethodSelected,
@@ -37,12 +46,23 @@ class _MollieCheckoutState extends State<MollieCheckout> {
 
 
   List<Widget> paymentMethods = new List();
-  
-  void setMethod(String method){
-    widget.onMethodSelected(method);
+
+   Future<void> _createOrder(String method) async {
+
+    widget.order.method = method;
+    String body = widget.order.toJson();
+
+    var res = await http.post(widget.createOrderUrl,
+        headers: {"Content-Type": "application/json"},
+        body: body);
+
+    MollieOrderResponse response = MollieOrderResponse.build(json.decode(res.body));
+
+    await Mollie.startPayment(response.checkoutUrl);
+
   }
 
-  void buildPaymentMethods() {
+  void _buildPaymentMethods() {
 
     CheckoutStyle style = widget.style == null ?
     CheckoutStyle(buttonColor: Colors.black,textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)) : widget.style;
@@ -55,7 +75,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
           child: FlatButton(
               color: style.buttonColor,
               onPressed: () {
-                setMethod("creditcard");
+                _createOrder("creditcard");
               },
               child: Row(
                 children: <Widget>[
@@ -80,7 +100,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
               child: FlatButton(
                   color: style.buttonColor,
                   onPressed: () {
-                    setMethod("sofort");
+                    _createOrder("sofort");
                   },
                   child: Row(
                     children: <Widget>[
@@ -106,7 +126,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
               child: FlatButton(
                   color: style.buttonColor,
                   onPressed: () {
-                    setMethod("sepadirectdebit");
+                    _createOrder("sepadirectdebit");
                   },
                   child: Row(
                     children: <Widget>[
@@ -131,7 +151,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
               child: FlatButton(
                   color: style.buttonColor,
                   onPressed: () {
-                    setMethod("PayPal");
+                    _createOrder("paypal");
                   },
                   child: Row(
                     children: <Widget>[
@@ -139,7 +159,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
                       Expanded(
                           child: Container(
                               alignment: Alignment.center,
-                              child: Text("Sofort",style: style.textStyle,)
+                              child: Text("PayPal",style: style.textStyle,)
                           )
                       ),
                     ],
@@ -154,7 +174,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
   @override
   void initState() {
     super.initState();
-    buildPaymentMethods();
+    _buildPaymentMethods();
   }
 
   @override

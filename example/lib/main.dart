@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:mollie/mollie.dart';
 import 'package:http/http.dart' as http;
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:mollie/molliecheckout.dart';
 
 void main() => runApp(MaterialApp(
@@ -29,7 +26,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
-
 
   MollieOrderRequest o = new MollieOrderRequest(
       amount: MollieAmount(
@@ -121,35 +117,16 @@ class _MyAppState extends State<MyApp> {
 
   );
 
-  Future<void> createOder(String method) async {
-
-    o.method = method;
-    String body = o.toJson();
-
-    var res = await http.post("http://blackboxshisha.herokuapp.com/mollie/create/order",
-    headers: {"Content-Type": "application/json"},
-    body: body);
-
-    response = MollieOrderResponse.build(json.decode(res.body));
-
-    await Mollie.startPayment(response.checkoutUrl);
-
-  }
-
-  MollieOrderResponse response;
-
-
   @override
   Widget build(BuildContext context) {
 
     return MollieCheckout(
+      createOrderUrl: "http://blackboxshisha.herokuapp.com/mollie/create/order",
+      order: o,
       useCredit: true,
       usePaypal: true,
       useSepa: true,
       useSofort: true,
-      onMethodSelected: (method) {
-        createOder(method);
-      },
     );
   }
 }
