@@ -54,13 +54,13 @@ Now we need to setup a few things for iOS and Android.
 
 1. Setup your scheme in AndroidManifest.xml under android > app > src > main > AndroidManifest.xml. This is needed because the checkout process will be done in the browser. After the checkout is done the browser will switch back to your app.
 
-Modify your AndroidManifest.xml like the following. Be sure that you use an unique host and scheme name. The host and scheme are important in the next steps. We use in this example "payment-return" and "molli".
+Modify your AndroidManifest.xml like the following. Be sure that you use an unique host and scheme name. The host and scheme are important in the next steps. We use in this example "payment-return" and "mollie".
 
 ```
 <intent-filter>
                 <data
                     android:host="payment-return"
-                    android:scheme="molli" />
+                    android:scheme="mollie" />
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.VIEW" />
@@ -166,22 +166,190 @@ public class MainActivity extends FlutterActivity {
 
 ```
 
+***iOS***
+
+1. Open your AppDelegate.swift in xCode and past this into it: 
+
+```swift
+
+ override func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey :   Any] = [:]) -> Bool {
+        if (url.host! == "payment-return") {
+            
+            let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
+            controller.pushRoute("done");
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+```
+
+Be sure that the "payment-return" part equals your android:host in your AndroidManifest.xml.
+
+***IMPORTANT***
+Currently this plugin supports only navigation with routes. Your MaterialApp() or CupertinoApp() widget should use the routes attribute to define routes. Otherwise this plugin will not process with the payment. You can ignore this step but then you have to process manually to the next step in your checkout process.
 
 
+2. Go to your Info.plist file. Right click any blank area and select Add Row to create a new key.
+
+https://assets.docs.mollie.com/_images/ios-scheme_plist-1@2x.png
+
+You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom and select URL types. This creates an array item. You can further click the disclosure icon to expand it and you need to select Item 0. Expand that row as well and you should see URL identifier. Double-click the value field and fill in your identifier. Most of the time will this be the same as your bundle ID, e.g. com.mollie.MollieApp. Click on the plus-button next to Item 0 and choose URL Schemes from the drop-down menu. Expand the URL Schemes row and another Item 0 will show up. Type in the value-field the scheme you want to handle, in our case mollie-app. Make sure to pick a unique scheme.
+
+https://assets.docs.mollie.com/_images/ios-scheme_plist-2@2x.png
+
+
+# USING THE PLUGIN
+
+Now we can use the plugin. 
 
 1. First of all import the plugin
 ```dart
 import 'package:mollie/mollie.dart';
 ```
 
-2. Build your Widget an implement the MolliCheckout Widget:
+2. Build your Widget and implement the MolliCheckout widget. After that Create a MollieOrderRequest and add it to the order attribute of the MolliCheckout widget. 
+
+***Important***
+Don't forget to setup the redirectUrl attribute in the MollieOrderRequest! In this example we use "payment-return" as host and "mollie" as scheme in Android. For iOS be sure that your url identefier in your Info.plist equals your app bundle and your url scheme equals the android scheme. The redirectUrl should follow this pattern scheme://host. For our example it should be mollie://payment-return.
+
+***AndroidManifest vs. Info.plist***
+android:host    ==  AppDelegate.swift
+android:scheme  ==  URL Scheme
 
 ```dart
 import 'package:mollie/mollie.dart';
 
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  MollieOrderRequest order = new MollieOrderRequest(
+      amount: MollieAmount(
+          value: "1396.00",
+          currency: "EUR"
+      ),
+      orderNumber: "900",
+      redirectUrl: "mollie://payment-return",
+      locale: "de_DE",
+      webhookUrl: 'https://example.org/webhook',
+      billingAddress: new MollieAddress(
+        organizationName: 'Mollie B.V.',
+        streetAndNumber: 'Keizersgracht 313',
+        city: 'Amsterdam',
+        region: 'Noord-Holland',
+        postalCode: '1234AB',
+        country: 'DE',
+        title: 'Dhr.',
+        givenName: 'Piet',
+        familyName: 'Mondriaan',
+        email: 'piet@mondriaan.com',
+        phone: '+31309202070',
+      ),
+      shippingAddress: new MollieAddress(
+        organizationName: 'Mollie B.V.',
+        streetAndNumber: 'Keizersgracht 313',
+        city: 'Amsterdam',
+        region: 'Noord-Holland',
+        postalCode: '1234AB',
+        country: 'DE',
+        title: 'Dhr.',
+        givenName: 'Piet',
+        familyName: 'Mondriaan',
+        email: 'piet@mondriaan.com',
+        phone: '+31309202070',
+      ),
+      products: [
+        MollieProductRequest(
+          type: 'physical',
+          sku: '5702016116977',
+          name: 'LEGO 42083 Bugatti Chiron',
+          productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
+          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          quantity: 2,
+          vatRate: '21.00',
+          unitPrice: MollieAmount(
+            currency: 'EUR',
+            value: '399.00',
+          ),
+          totalAmount: MollieAmount(
+            currency: 'EUR',
+            value: '698.00',
+          ),
+          discountAmount: MollieAmount(
+            currency: 'EUR',
+            value: '100.00',
+          ),
+          vatAmount: MollieAmount(
+            currency: 'EUR',
+            value: '121.14',
+          ),
+        ),
+        MollieProductRequest(
+          type: 'physical',
+          sku: '5702016116977',
+          name: 'LEGO 42083 Bugatti Chiron',
+          productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
+          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          quantity: 2,
+          vatRate: '21.00',
+          unitPrice: MollieAmount(
+            currency: 'EUR',
+            value: '399.00',
+          ),
+          totalAmount: MollieAmount(
+            currency: 'EUR',
+            value: '698.00',
+          ),
+          discountAmount: MollieAmount(
+            currency: 'EUR',
+            value: '100.00',
+          ),
+          vatAmount: MollieAmount(
+            currency: 'EUR',
+            value: '121.14',
+          ),
+        )
+      ]
+
+  );
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MollieCheckout(
+      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
+      order: order,
+      useCredit: true,
+      usePaypal: true,
+      useSepa: true,
+      useSofort: true,
+    );
+  }
+}
 
 
 ```
+
+Optionaly you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
+
+Currently supported payment methods:
+
+- CreditCard
+- Paypal
+- SEPA
+- Klarna Sofort
+
 
 
 
