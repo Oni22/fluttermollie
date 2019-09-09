@@ -193,7 +193,7 @@ Be sure that the "payment-return" part equals your android:host in your AndroidM
 Currently this plugin supports only navigation with routes. Your MaterialApp() or CupertinoApp() widget should use the routes attribute to define routes. Otherwise this plugin will not process with the payment. You can ignore this step but then you have to process manually to the next step in your checkout process.
 
 
-2. Go to your Info.plist file. Right click any blank area and select Add Row to create a new key.
+2. Go to your Info.plist file. Right click any blank area and select Add Row to create a new key. (This part is from molli: https://docs.mollie.com/mobile-apps/getting-started-payments)
 
 ![alt text](https://assets.docs.mollie.com/_images/ios-scheme_plist-1@2x.png)
 
@@ -211,14 +211,61 @@ Now we can use the plugin.
 import 'package:mollie/mollie.dart';
 ```
 
-2. Build your Widget and implement the MolliCheckout widget. After that Create a MollieOrderRequest and add it to the order attribute of the MolliCheckout widget. 
+2. Build your Widget and implement the MolliCheckout widget. 
 
-***Important***
-Don't forget to setup the redirectUrl attribute in the MollieOrderRequest! In this example we use "payment-return" as host and "mollie" as scheme in Android. For iOS be sure that your url identefier in your Info.plist equals your app bundle and your url scheme equals the android scheme. The redirectUrl should follow this pattern scheme://host. For our example it should be mollie://payment-return.
+```dart 
 
-***AndroidManifest vs. Info.plist***
-android:host    ==  AppDelegate.swift
-android:scheme  ==  URL Scheme
+```dart
+import 'package:mollie/mollie.dart';
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MollieCheckout(
+      createOrderUrl: ...,
+      order: ...,
+      useCredit: true,
+      usePaypal: true,
+      useSepa: true,
+      useSofort: true,
+    );
+  }
+}
+
+```
+
+3. Add your api call to the createOrderUrl attribute
+
+```dart
+  @override
+  Widget build(BuildContext context) {
+
+    return MollieCheckout(
+      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
+      order: ...,
+      useCredit: true,
+      usePaypal: true,
+      useSepa: true,
+      useSofort: true,
+    );
+  }
+}
+
+```
+
+4. Create a MollieOrderRequest and add it to the order attribute
 
 ```dart
 import 'package:mollie/mollie.dart';
@@ -342,6 +389,32 @@ class _MyAppState extends State<MyApp> {
 
 ```
 
+5. Setup the redirectUrl attribute in your MollieOrderRequest.
+
+```dart
+
+ MollieOrderRequest order = new MollieOrderRequest(
+      ...
+      redirectUrl: "mollie://payment-return",
+      ...
+);
+
+```
+The redirectUrl should follow this pattern scheme://host. For our example it should be mollie://payment-return.
+
+Cheat Sheet:
+
+***AndroidManifest***
+android:host is HOST (should be same as in ios)
+android:scheme is SCHEME (should be same as in ios)
+
+***Info.plist***
+URL Scheme is SCHEME (should be same as in android)
+URL Identifier is NOT HOST
+URL Identifier is appBundleId (com.yourcompany.appname)
+HOST will be set up in AppDelegate.swift see ios Part at the top (should be same as in android) 
+
+
 Optionaly you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
 
 Currently supported payment methods:
@@ -351,6 +424,8 @@ Currently supported payment methods:
 - SEPA
 - Klarna Sofort
 
+
+PROFIT! :)
 
 
 
