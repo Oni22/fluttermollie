@@ -5,15 +5,13 @@ import 'mollieorder.dart';
 class CheckoutStyle {
   Color buttonColor;
   TextStyle textStyle;
-  bool useScaffold;
   AppBar appBar;
 
-  CheckoutStyle({this.textStyle, this.buttonColor,this.appBar,this.useScaffold});
+  CheckoutStyle({this.textStyle, this.buttonColor,this.appBar});
 }
 
 class MollieCheckout extends StatefulWidget {
   final bool useSofort;
-  final bool useScaffold;
   final bool useSepa;
   final bool useCredit;
   final bool usePaypal;
@@ -24,7 +22,6 @@ class MollieCheckout extends StatefulWidget {
   MollieCheckout({
       @required this.order,
       this.style,
-      this.useScaffold = true,
       this.onMethodSelected,
       this.useCredit = true,
       this.usePaypal = true,
@@ -170,13 +167,10 @@ class _MollieCheckoutState extends State<MollieCheckout> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.useScaffold) {
+
+    if (widget.style != null && widget.style.appBar != null) {
       return Scaffold(
-          appBar: AppBar(
-            title: Text("Checkout"),
-            centerTitle: true,
-            backgroundColor: Colors.black,
-          ),
+          appBar: widget.style.appBar,
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[

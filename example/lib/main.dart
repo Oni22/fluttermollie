@@ -110,6 +110,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> createOrder(MollieOrderRequest order) async{
 
+    // use this in a new widget with a future builder
     var res = await Mollie.createOrder("http://blackboxshisha.herokuapp.com/mollie/create/order", order);
 
     // Open the browser
@@ -123,6 +124,8 @@ class _MyAppState extends State<MyApp> {
       order: o,
       onMethodSelected: (order) {
 
+        //this.order = order;
+        //currentStep++;
         createOrder(order);
 
       },
