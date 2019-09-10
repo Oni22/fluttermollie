@@ -5,8 +5,10 @@ import 'mollieorder.dart';
 class CheckoutStyle {
   Color buttonColor;
   TextStyle textStyle;
+  bool useScaffold;
+  AppBar appBar;
 
-  CheckoutStyle({this.textStyle, this.buttonColor});
+  CheckoutStyle({this.textStyle, this.buttonColor,this.appBar,this.useScaffold});
 }
 
 class MollieCheckout extends StatefulWidget {

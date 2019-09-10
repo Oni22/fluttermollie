@@ -15,12 +15,27 @@ import 'mollieorder.dart';
 
 class Mollie {
 
+  static final klarnaPayNow = "sofort";
+  static final creditCard = "creditcard";
+  static final payPal = "paypal";
+  static final sepa = "sepa"; //TODO not working!
+
   static const MethodChannel _channel = const MethodChannel('mollie');
 
   /// Opens the browser to process the payment. Returns after payment is done.
   static Future<void> startPayment(String checkoutUrl) async {
     return await _channel
         .invokeMethod('startPayment', {"checkoutUrl": checkoutUrl});
+  }
+
+  /// Trys to open the browser to process the payment depending on the current order. Returns after payment is done.
+  static Future<void> tryStartPayment() async {
+
+    assert(currentMollieOrder == null && currentMollieOrder.method == null, "Current order is null or has no method");
+
+    return await _channel
+        .invokeMethod('startPayment', {"checkoutUrl": currentMollieOrder.checkoutUrl});
+
   }
 
   /// Creates a new order and returns a MollieOrderResponse.
@@ -49,6 +64,6 @@ class Mollie {
   static MollieOrderResponse currentMollieOrder;
 
   /// Clears the currentMollieOrder
-  void clearCurrentOrder() => currentMollieOrder = null;
+  static void clearCurrentOrder() => currentMollieOrder = null;
 
 }

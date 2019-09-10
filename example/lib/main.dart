@@ -112,6 +112,7 @@ class _MyAppState extends State<MyApp> {
 
     var res = await Mollie.createOrder("http://blackboxshisha.herokuapp.com/mollie/create/order", order);
 
+    // Open the browser
     Mollie.startPayment(res.checkoutUrl);
 
   }
@@ -152,7 +153,7 @@ class Testy extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
         body: Center(
-      child: Text(Mollie.currentMollieOrder.id),
+      child: Text("Bestätigen und mit" + Mollie.currentMollieOrder.getMethodFormatted() + " bezahlen"),
     ));
   }
 }

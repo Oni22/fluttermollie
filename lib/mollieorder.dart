@@ -96,4 +96,19 @@ class MollieOrderResponse {
 
     checkoutUrl = data["_links"]["checkout"]["href"];
   }
+
+  String getMethodFormatted() {
+
+    switch(method){
+      case "paypal":
+        return "PayPal";
+      case "creditcard":
+        return "Credit Card";
+      case "sofort":
+        return "Sofort";
+      default:
+        return "No method selected";
+    }
+
+  }
 }
