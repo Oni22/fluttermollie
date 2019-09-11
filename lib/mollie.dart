@@ -7,12 +7,9 @@ export 'mollieamount.dart';
 export 'package:mollie/molliecheckout.dart';
 export 'mollieorderstatus.dart';
 
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
-
 import 'mollieorder.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
 class Mollie {
 
@@ -29,42 +26,10 @@ class Mollie {
         .invokeMethod('startPayment', {"checkoutUrl": checkoutUrl});
   }
 
-  /// Trys to open the browser to process the payment depending on the current order. Returns after payment is done.
-  static Future<void> tryStartPayment() async {
+  static MollieOrderResponse _currentOrder;
 
-    assert(currentMollieOrder == null && currentMollieOrder.method == null, "Current order is null or has no method");
+  static MollieOrderResponse getCurrentOrder() => _currentOrder;
 
-    return await _channel
-        .invokeMethod('startPayment', {"checkoutUrl": currentMollieOrder.checkoutUrl});
-
-  }
-
-  /// Creates a new order and returns a MollieOrderResponse.
-  static Future<MollieOrderResponse> createOrder(String createOrderUrl, MollieOrderRequest order) async {
-
-    String body = order.toJson();
-
-    var res = await http.post(
-      createOrderUrl,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: body
-    );
-
-    dynamic data = json.decode(res.body);
-
-    MollieOrderResponse r = new MollieOrderResponse.build(data);
-    currentMollieOrder = r;
-
-    return r;
-
-  }
-
-  /// The current order
-  static MollieOrderResponse currentMollieOrder;
-
-  /// Clears the currentMollieOrder
-  static void clearCurrentOrder() => currentMollieOrder = null;
+  static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) => _currentOrder = order;
 
 }

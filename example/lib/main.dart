@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 void main() => runApp(MaterialApp(
     initialRoute: "home",
-    routes: {"home": (context) => MyApp(), "done": (context) => Testy()}));
+    routes: {"home": (context) => MyApp(), "done": (context) => ShowOrderStatus()}));
 
 class MyApp extends StatefulWidget {
   @override
@@ -111,9 +111,17 @@ class _MyAppState extends State<MyApp> {
   Future<void> createOrder(MollieOrderRequest order) async{
 
     // use this in a new widget with a future builder
-    var res = await Mollie.createOrder("http://blackboxshisha.herokuapp.com/mollie/create/order", order);
+    var orderResponse = await http.post(
+        "http://blackboxshisha.herokuapp.com/mollie/create/order",
+        headers: {"Content-Type": "application/json"},
+        body: order.toJson()
+    );
 
-    // Open the browser
+    var data = json.decode(orderResponse.body);
+    MollieOrderResponse res = MollieOrderResponse.build(data);
+
+    Mollie.setCurrentOrder(res);
+
     Mollie.startPayment(res.checkoutUrl);
 
   }
@@ -124,8 +132,6 @@ class _MyAppState extends State<MyApp> {
       order: o,
       onMethodSelected: (order) {
 
-        //this.order = order;
-        //currentStep++;
         createOrder(order);
 
       },
@@ -137,48 +143,12 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Testy extends StatelessWidget {
-  final String id;
-
-  Testy({this.id});
-
-  Future<String> orderStatus() async {
-    var res = await http
-        .get("http://blackboxshisha.herokuapp.com/mollie/create/order/" + id);
-
-    print(res.body);
-    dynamic d = json.decode(res.body);
-    return d["status"];
-  }
+class ShowOrderStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MollieOrderStatus(
-      orders: [Mollie.currentMollieOrder],
+      orders: [Mollie.getCurrentOrder()],
     );
   }
 }
-
-//FutureBuilder(
-//future: auth(),
-//builder: (context,snapshot){
-//
-//if(snapshot.hasData){
-//return Center(
-//child: RaisedButton(onPressed: () {auth();}),
-////child: WebView(
-////  key: key,
-////  javascriptMode: JavascriptMode.unrestricted,
-////  initialUrl: snapshot.data,
-////)  //RaisedButton(onPressed: () { auth(); })
-//);
-//}
-//else {
-//return Center(
-//child: CircularProgressIndicator(),
-//);
-//}
-//
-//}
-//)
