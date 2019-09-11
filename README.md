@@ -8,7 +8,7 @@ Before you can start to use this plugin you have to setup your server first. Mol
 
 In the following example we will use Node.js with Express.js to do our API calls.
 
-1. After you setup your Node.js server you have to install the Mollie package. Go into your working directory and type:
+**1. After you setup your Node.js server you have to install the Mollie package. Go into your working directory and type:**
 
 ```
 npm install @mollie/api-client@beta --save
@@ -17,7 +17,7 @@ npm install @mollie/api-client@beta --save
 
 For detailed instructions go to https://github.com/mollie/mollie-api-node
 
-2. Initialize Mollie:
+**2. Initialize Mollie:**
 
 ```javascript
 
@@ -28,7 +28,7 @@ const mollieClient = createMollieClient({ apiKey: 'test_AFkJP7UuC3wddaeGasdG2Uff
 
 You can find your API test and public keys in your Mollie Dashboard under the developer tab.
 
-3. Create an order:
+**3. Create an order:**
 
 ```javascript
 
@@ -52,7 +52,7 @@ Now we need to setup a few things for iOS and Android.
 
 ***ANDROID***
 
-1. Setup your scheme in AndroidManifest.xml under android > app > src > main > AndroidManifest.xml. This is needed because if the user starts the checkout process this plugin will switch to the browser and will open the checkout page of Mollie. After the checkout is done the browser will switch back to your app. The scheme will help the browser to open the correct app.
+**1. Setup your scheme in AndroidManifest.xml under android > app > src > main > AndroidManifest.xml. This is needed because if the user starts the checkout process this plugin will switch to the browser and will open the checkout page of Mollie. After the checkout is done the browser will switch back to your app. The scheme will help the browser to open the correct app.**
 
 Modify your AndroidManifest.xml like the following. Be sure that you use an unique host and scheme name. The host and scheme are important in the next steps. We will use "payment-return" as host and "mollie" as scheme in this example.
 
@@ -116,7 +116,7 @@ Your Manifest could look like this:
 
 ```
 
-2. Go to your MainActivity.java in android > app > src > java > com.yourcompany.appname > MainActivity and paste the follwing into it:
+**2. Go to your MainActivity.java in android > app > src > java > com.yourcompany.appname > MainActivity and paste the follwing into it:**
 
 ```java
 
@@ -169,7 +169,7 @@ public class MainActivity extends FlutterActivity {
 
 ***iOS***
 
-1. Open your AppDelegate.swift in xCode and past this into it: 
+**1. Open your AppDelegate.swift in xCode and past this into it:** 
 
 ```swift
 
@@ -193,7 +193,7 @@ Be sure that the "payment-return" part equals your android:host in your AndroidM
 Currently this plugin supports only navigation with routes. Your MaterialApp() or CupertinoApp() widget should use the routes attribute to define routes. Otherwise this plugin will not process with the payment. You can ignore this step but then you have to process manually to the next step in your checkout process.
 
 
-2. Go to your Info.plist file. Right click any blank area and select Add Row to create a new key. (This part is from molli: https://docs.mollie.com/mobile-apps/getting-started-payments)
+**2. Go to your Info.plist file. Right click any blank area and select Add Row to create a new key. (This part is from molli: https://docs.mollie.com/mobile-apps/getting-started-payments)**
 
 ![alt text](https://assets.docs.mollie.com/_images/ios-scheme_plist-1@2x.png)
 
@@ -206,82 +206,16 @@ You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom
 
 Now we can use the plugin. 
 
-1. First of all import the plugin
+**1. Import the plugin**
 ```dart
 import 'package:mollie/mollie.dart';
 ```
 
-2. Build your Widget and implement the MolliCheckout widget. 
+**2. Create a new MollieOrderRequest:**
 
 ```dart
 
-import 'package:mollie/mollie.dart';
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: ...,
-      order: ...,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
-```
-
-3. Add your api call to the createOrderUrl attribute
-
-```dart
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
-      order: ...,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
-```
-
-4. Create a MollieOrderRequest and add it to the order attribute
-
-```dart
-import 'package:mollie/mollie.dart';
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  MollieOrderRequest order = new MollieOrderRequest(
+MollieOrderRequest order = new MollieOrderRequest(
       amount: MollieAmount(
           value: "1396.00",
           currency: "EUR"
@@ -371,24 +305,11 @@ class _MyAppState extends State<MyApp> {
 
   );
 
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
-      order: order,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
 
 ```
 
-5. Setup the redirectUrl attribute in your MollieOrderRequest.
+
+**3. IMPORTANT Setup the redirectUrl attribute in your MollieOrderRequest.**
 
 ```dart
 
@@ -412,8 +333,74 @@ AndroidManifest | android:scheme="mollie"  | android:host="payment-return"| moll
 Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
 
 
+**4. Call your api endpoint and send your MollieOrderRequest to your server to retrieve an order object:**
 
-6. Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
+```dart
+
+  Future<MollieOrderResponse> createOrder(MollieOrderRequest order) async{
+
+    // use this in a new widget with a future builder
+    var orderResponse = await http.post(
+    "http://blackboxshisha.herokuapp.com/mollie/create/order",
+    headers: "Content-Type": "application/json",
+    body: order.toJson()
+    );
+
+    var data = json.decode(orderResponse);
+    return MollieOrderResponse.build(data);
+
+  }
+  
+```
+
+**5. Process the retrieved data from your server:**
+
+```dart
+
+  @override
+  Widget build(BuildContext context) {
+
+    return FutureBuilder(
+      future: createOrder(order),
+      builder: (context,snapshot) {
+      
+        if(snapshot.hasData){
+        
+          var order = snapshot.data;
+          
+          return Scaffold(
+            body: MollieCheckout(
+              onMethodSelected: (order) {
+              
+                /// Start the checkout process
+                Mollie.startPayment(order.checkoutUrl);
+              
+              }
+              order: order,
+              usePayPal: true,
+              useSepa: true,
+              useCredit: true,
+              useSofort: true
+            )
+          );
+        
+        }
+        else {
+        
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator())
+          );
+        
+        }
+      
+      }
+    );
+  }
+
+```
+
+
+**6. Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.**
 
 Currently supported payment methods:
 
