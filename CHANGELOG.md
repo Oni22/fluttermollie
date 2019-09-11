@@ -1,3 +1,8 @@
+## 0.6.0
+
+* MolliCheckout attributes changed (see documentation)
+* MolliOrderStatus widget added (alpha)
+
 ## 0.5.1
 
 * Update readme's

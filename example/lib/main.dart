@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       orderNumber: "900",
       redirectUrl: "molli://payment-return",
       locale: "de_DE",
-      webhookUrl: 'https://example.org/webhook',
+      webhookUrl: 'http://blackboxshisha.herokuapp.com/mollie/order/status',
       billingAddress: new MollieAddress(
         organizationName: 'Mollie B.V.',
         streetAndNumber: 'Keizersgracht 313',
@@ -154,10 +154,9 @@ class Testy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-        body: Center(
-      child: Text("Bestätigen und mit" + Mollie.currentMollieOrder.getMethodFormatted() + " bezahlen"),
-    ));
+    return MollieOrderStatus(
+      orders: [Mollie.currentMollieOrder],
+    );
   }
 }
 

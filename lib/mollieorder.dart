@@ -68,6 +68,8 @@ class MollieOrderResponse {
   String status;
   String method;
   String orderNumber;
+  String createdAt;
+  String expiresAt;
 
   MollieOrderResponse.build(dynamic data) {
     id = data["id"];
@@ -78,7 +80,10 @@ class MollieOrderResponse {
     shippingAddress = MollieAddress.build(data["shippingAddress"]);
     billingAddress = MollieAddress.build(data["billingAddress"]);
 
-    //metaData = data["metaData"];
+    createdAt = data["createdAt"];
+    expiresAt = data["expiredAt"];
+
+    metaData = data["metaData"];
 
     consumerDateOfBirth = data["consumerDateOfBirth"];
     locale = data["locale"];
