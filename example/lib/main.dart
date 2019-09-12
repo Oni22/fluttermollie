@@ -5,9 +5,10 @@ import 'dart:async';
 import 'package:mollie/mollie.dart';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(MaterialApp(
-    initialRoute: "home",
-    routes: {"home": (context) => MyApp(), "done": (context) => ShowOrderStatus()}));
+void main() => runApp(MaterialApp(initialRoute: "home", routes: {
+      "home": (context) => MyApp(),
+      "done": (context) => ShowOrderStatus()
+    }));
 
 class MyApp extends StatefulWidget {
   @override
@@ -107,15 +108,12 @@ class _MyAppState extends State<MyApp> {
         )
       ]);
 
-
-  Future<void> createOrder(MollieOrderRequest order) async{
-
+  Future<void> createOrder(MollieOrderRequest order) async {
     // use this in a new widget with a future builder
     var orderResponse = await http.post(
         "http://blackboxshisha.herokuapp.com/mollie/create/order",
         headers: {"Content-Type": "application/json"},
-        body: order.toJson()
-    );
+        body: order.toJson());
 
     var data = json.decode(orderResponse.body);
     MollieOrderResponse res = MollieOrderResponse.build(data);
@@ -123,7 +121,6 @@ class _MyAppState extends State<MyApp> {
     Mollie.setCurrentOrder(res);
 
     Mollie.startPayment(res.checkoutUrl);
-
   }
 
   @override
@@ -131,9 +128,7 @@ class _MyAppState extends State<MyApp> {
     return MollieCheckout(
       order: o,
       onMethodSelected: (order) {
-
         createOrder(order);
-
       },
       useCredit: true,
       usePaypal: true,
@@ -144,7 +139,6 @@ class _MyAppState extends State<MyApp> {
 }
 
 class ShowOrderStatus extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MollieOrderStatus(

@@ -7,7 +7,7 @@ class CheckoutStyle {
   TextStyle textStyle;
   AppBar appBar;
 
-  CheckoutStyle({this.textStyle, this.buttonColor,this.appBar});
+  CheckoutStyle({this.textStyle, this.buttonColor, this.appBar});
 }
 
 class MollieCheckout extends StatefulWidget {
@@ -19,8 +19,8 @@ class MollieCheckout extends StatefulWidget {
   final MollieOrderRequest order;
   final Function(MollieOrderRequest) onMethodSelected;
 
-  MollieCheckout({
-      @required this.order,
+  MollieCheckout(
+      {@required this.order,
       this.style,
       this.onMethodSelected,
       this.useCredit = true,
@@ -33,19 +33,15 @@ class MollieCheckout extends StatefulWidget {
 }
 
 class _MollieCheckoutState extends State<MollieCheckout> {
-
   List<Widget> paymentMethods = new List();
   CheckoutStyle style;
 
-  void _setMethod(String method){
-
+  void _setMethod(String method) {
     widget.order.method = method;
     widget.onMethodSelected(widget.order);
-
   }
 
   void _buildPaymentMethods() {
-
     style = widget.style == null
         ? CheckoutStyle(
             appBar: AppBar(
@@ -174,7 +170,6 @@ class _MollieCheckoutState extends State<MollieCheckout> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: style.appBar,
         body: SingleChildScrollView(
@@ -185,8 +180,8 @@ class _MollieCheckoutState extends State<MollieCheckout> {
                   child: Text("Select a payment method.")),
               Container(
                   child: Column(
-                    children: paymentMethods,
-                  ))
+                children: paymentMethods,
+              ))
             ],
           ),
         ));

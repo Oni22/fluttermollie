@@ -12,7 +12,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Mollie {
-
   static final klarnaPayNow = "sofort";
   static final creditCard = "creditcard";
   static final payPal = "paypal";
@@ -30,6 +29,6 @@ class Mollie {
 
   static MollieOrderResponse getCurrentOrder() => _currentOrder;
 
-  static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) => _currentOrder = order;
-
+  static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
+      _currentOrder = order;
 }
