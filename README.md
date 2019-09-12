@@ -169,19 +169,19 @@ public class MainActivity extends FlutterActivity {
 
 ***iOS***
 
-**1. Open your AppDelegate.swift in xCode and past this into it:** 
+**1. Open your AppDelegate.swift in xCode and past this into it:**
 
 ```swift
 
  override func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey :   Any] = [:]) -> Bool {
         if (url.host! == "payment-return") {
-            
+
             let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
             controller.pushRoute("done");
-            
+
             return true;
         }
-        
+
         return false;
     }
 
@@ -204,7 +204,7 @@ You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom
 
 # USING THE PLUGIN
 
-Now we can use the plugin. 
+Now we can use the plugin.
 
 **1. Import the plugin**
 ```dart
@@ -215,7 +215,7 @@ import 'package:mollie/mollie.dart';
 
 ```dart
 
-MollieOrderRequest order = new MollieOrderRequest(
+MollieOrderRequest requestOrder = new MollieOrderRequest(
       amount: MollieAmount(
           value: "1396.00",
           currency: "EUR"
@@ -337,63 +337,46 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
 
 ```dart
 
-  Future<MollieOrderResponse> createOrder(MollieOrderRequest order) async{
+  Future<void> createOrder(MollieOrderRequest order) async{
 
-    // use this in a new widget with a future builder
+    /// send a POST request to your server with the created MollieOrderRequest
     var orderResponse = await http.post(
-    "http://blackboxshisha.herokuapp.com/mollie/create/order",
-    headers: "Content-Type": "application/json",
-    body: order.toJson()
+        "http://blackboxshisha.herokuapp.com/mollie/create/order",
+        headers: {"Content-Type": "application/json"},
+        body: order.toJson()
     );
 
-    var data = json.decode(orderResponse);
-    return MollieOrderResponse.build(data);
+    /// get a order object from your server and parse it
+    var data = json.decode(orderResponse.body);
+    MollieOrderResponse res = MollieOrderResponse.build(data);
+
+    /// set the current order to retrieve this order from other widgets easily with Mollie.getCurrentOrder()
+    Mollie.setCurrentOrder(res);
+
+    /// Start the checkout process with the browser switch
+    Mollie.startPayment(res.checkoutUrl);
 
   }
-  
+
 ```
 
-**5. Process the retrieved data from your server:**
+**5. Use the MollieCheckout widget to show nicely multiple payment methods:**
 
 ```dart
 
-  @override
+   @override
   Widget build(BuildContext context) {
+    return MollieCheckout(
+      order: requestOrder,
+      onMethodSelected: (order) {
 
-    return FutureBuilder(
-      future: createOrder(order),
-      builder: (context,snapshot) {
-      
-        if(snapshot.hasData){
-        
-          var order = snapshot.data;
-          
-          return Scaffold(
-            body: MollieCheckout(
-              onMethodSelected: (order) {
-              
-                /// Start the checkout process
-                Mollie.startPayment(order.checkoutUrl);
-              
-              }
-              order: order,
-              usePayPal: true,
-              useSepa: true,
-              useCredit: true,
-              useSofort: true
-            )
-          );
-        
-        }
-        else {
-        
-          return Scaffold(
-            body: Center(child: CircularProgressIndicator())
-          );
-        
-        }
-      
-      }
+        createOrder(order);
+
+      },
+      useCredit: true,
+      usePaypal: true,
+      useSepa: true,
+      useSofort: true,
     );
   }
 
