@@ -2,82 +2,16 @@
 
 Now we can use the plugin.
 
-1. First of all import the plugin
+**1. Import the plugin**
 ```dart
 import 'package:mollie/mollie.dart';
 ```
 
-2. Build your Widget and implement the MolliCheckout widget.
+**2. Create a new MollieOrderRequest:**
 
 ```dart
 
-import 'package:mollie/mollie.dart';
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: ...,
-      order: ...,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
-```
-
-3. Add your api call to the createOrderUrl attribute
-
-```dart
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
-      order: ...,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
-```
-
-4. Create a MollieOrderRequest and add it to the order attribute
-
-```dart
-import 'package:mollie/mollie.dart';
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  MollieOrderRequest order = new MollieOrderRequest(
+MollieOrderRequest requestOrder = new MollieOrderRequest(
       amount: MollieAmount(
           value: "1396.00",
           currency: "EUR"
@@ -167,24 +101,11 @@ class _MyAppState extends State<MyApp> {
 
   );
 
-  @override
-  Widget build(BuildContext context) {
-
-    return MollieCheckout(
-      createOrderUrl: "http://yourserver.herokuapp.com/your/custom/path",
-      order: order,
-      useCredit: true,
-      usePaypal: true,
-      useSepa: true,
-      useSofort: true,
-    );
-  }
-}
-
 
 ```
 
-5. Setup the redirectUrl attribute in your MollieOrderRequest.
+
+**3. IMPORTANT Setup the redirectUrl attribute in your MollieOrderRequest.**
 
 ```dart
 
@@ -208,8 +129,57 @@ AndroidManifest | android:scheme="mollie"  | android:host="payment-return"| moll
 Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
 
 
+**4. Call your api endpoint and send your MollieOrderRequest to your server to retrieve an order object:**
 
-6. Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.
+```dart
+
+  Future<void> createOrder(MollieOrderRequest order) async{
+
+    /// send a POST request to your server with the created MollieOrderRequest
+    var orderResponse = await http.post(
+        "http://blackboxshisha.herokuapp.com/mollie/create/order",
+        headers: {"Content-Type": "application/json"},
+        body: order.toJson()
+    );
+
+    /// get a order object from your server and parse it
+    var data = json.decode(orderResponse.body);
+    MollieOrderResponse res = MollieOrderResponse.build(data);
+
+    /// set the current order to retrieve this order from other widgets easily with Mollie.getCurrentOrder()
+    Mollie.setCurrentOrder(res);
+
+    /// Start the checkout process with the browser switch
+    Mollie.startPayment(res.checkoutUrl);
+
+  }
+
+```
+
+**5. Use the MollieCheckout widget to show nicely multiple payment methods:**
+
+```dart
+
+   @override
+  Widget build(BuildContext context) {
+    return MollieCheckout(
+      order: requestOrder,
+      onMethodSelected: (order) {
+
+        createOrder(order);
+
+      },
+      useCredit: true,
+      usePaypal: true,
+      useSepa: true,
+      useSofort: true,
+    );
+  }
+
+```
+
+
+**6. Optionally you can enable other payment methods. PayPal and Creditcard payment is enabled by default.**
 
 Currently supported payment methods:
 
@@ -219,16 +189,4 @@ Currently supported payment methods:
 - Klarna Sofort
 
 
-# Get order data after checkout (switching back from browser to your app)
-
-With Molli.currentMollieOrder you can get the current order object which is returned after the checkout process.
-This object is alive until a new checkout process starts.
-
-```dart
-
-String orderId = Mollie.currentMollieOrder.id;
-
-```
-
-
-
+PROFIT! :)

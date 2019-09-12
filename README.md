@@ -169,19 +169,19 @@ public class MainActivity extends FlutterActivity {
 
 ***iOS***
 
-**1. Open your AppDelegate.swift in xCode and past this into it:** 
+**1. Open your AppDelegate.swift in xCode and past this into it:**
 
 ```swift
 
  override func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey :   Any] = [:]) -> Bool {
         if (url.host! == "payment-return") {
-            
+
             let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
             controller.pushRoute("done");
-            
+
             return true;
         }
-        
+
         return false;
     }
 
@@ -204,7 +204,7 @@ You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom
 
 # USING THE PLUGIN
 
-Now we can use the plugin. 
+Now we can use the plugin.
 
 **1. Import the plugin**
 ```dart
@@ -357,7 +357,7 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
     Mollie.startPayment(res.checkoutUrl);
 
   }
-  
+
 ```
 
 **5. Use the MollieCheckout widget to show nicely multiple payment methods:**

@@ -1,7 +1,7 @@
 ## 0.6.0
 
-* MolliCheckout attributes changed (see documentation)
-* MolliOrderStatus widget added (alpha)
+* MollieCheckout attributes changed (see documentation)
+* MollieOrderStatus widget added (alpha)
 
 ## 0.5.1
 
