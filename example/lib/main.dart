@@ -111,6 +111,26 @@ class _MyAppState extends State<MyApp> {
   Future<void> createOrder(MollieOrderRequest order) async {
     // use this in a new widget with a future builder
 
+    MollieShipmentRequest r = new MollieShipmentRequest(
+      orderId: "asd",
+      carrier: "DHL",
+      trackingCode: "2i129e",
+      url: "u",
+      products: [
+        MollieShipmentProduct(
+          id: "1",
+          quantity: 12
+        ),
+        MollieShipmentProduct(
+            id: "122",
+            quantity: 12
+        )
+      ]
+
+    );
+
+    print(r.toJson());
+
     var orderResponse = await http.post(
         "http://blackboxshisha.herokuapp.com/mollie/create/order",
         headers: {"Content-Type": "application/json"},

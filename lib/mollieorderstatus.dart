@@ -166,7 +166,6 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                           ),
                           Expanded(
                             child: Container(
-                              color: Colors.green,
                               padding: const EdgeInsets.all(5),
                               child: shippmentProcess(o.status),
                           ))

@@ -26,7 +26,6 @@ class MollieShipmentRequest {
 
   String orderId;
   List<MollieShipmentProduct> products;
-  String tracking;
   String carrier;
   String trackingCode;
   String url;
@@ -34,7 +33,6 @@ class MollieShipmentRequest {
   MollieShipmentRequest({
     this.orderId,
     this.carrier,
-    this.tracking,
     this.products,
     this.trackingCode,
     this.url
