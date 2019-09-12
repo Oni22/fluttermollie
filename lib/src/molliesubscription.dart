@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:mollie/src/mollieamount.dart';
 
 class MollieSubscriptionRequest {
-
   String customerId;
   MollieAmount amount;
   int times;
@@ -10,17 +9,15 @@ class MollieSubscriptionRequest {
   String description;
   String webhookUrl;
 
-  MollieSubscriptionRequest({
-    this.customerId,
-    this.amount,
-    this.interval,
-    this.description,
-    this.webhookUrl,
-    this.times
-  });
+  MollieSubscriptionRequest(
+      {this.customerId,
+      this.amount,
+      this.interval,
+      this.description,
+      this.webhookUrl,
+      this.times});
 
-  String toJson(){
-
+  String toJson() {
     return json.encode({
       "customerId": customerId,
       "amount": amount.toMap(),
@@ -29,16 +26,10 @@ class MollieSubscriptionRequest {
       "description": description,
       "webhookUrl": webhookUrl,
     });
-
   }
-
-
-
 }
 
-
 class MollieSubscriptionResponse {
-
   String id;
   String mode;
   String createdAt;
@@ -58,13 +49,13 @@ class MollieSubscriptionResponse {
   String profileUrl;
   String selfUrl;
 
-  MollieSubscriptionResponse.build(dynamic data){
-
+  MollieSubscriptionResponse.build(dynamic data) {
     id = data["id"];
     mode = data["mode"];
     createdAt = data["createdAt"];
     status = data["status"];
-    amount = MollieAmount(value: data["amount"]["value"],currency: data["amount"]["currency"]);
+    amount = MollieAmount(
+        value: data["amount"]["value"], currency: data["amount"]["currency"]);
     value = data["value"];
     times = data["times"];
     timesRemaining = data["timesRemaining"];
@@ -78,7 +69,5 @@ class MollieSubscriptionResponse {
     documentationUrl = data["_links"]["documentation"]["href"];
     profileUrl = data["_links"]["profile"]["href"];
     selfUrl = data["_links"]["self"]["href"];
-
   }
-
 }

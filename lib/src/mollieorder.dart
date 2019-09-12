@@ -3,7 +3,7 @@ import 'package:mollie/src/mollieamount.dart';
 import 'package:mollie/src/mollieproduct.dart';
 import 'dart:convert';
 
-class MollieOrderRequest  {
+class MollieOrderRequest {
   MollieAmount amount;
   MollieAddress shippingAddress;
   MollieAddress billingAddress;
@@ -54,7 +54,6 @@ class MollieOrderRequest  {
 }
 
 class MollieOrderResponse {
-
   String id;
   MollieAmount amount;
   MollieAddress shippingAddress;

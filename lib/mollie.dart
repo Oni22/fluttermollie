@@ -20,7 +20,6 @@ class Mollie {
   static final payPal = "paypal";
   static final sepa = "sepa"; //TODO not working!
 
-
   static const MethodChannel _channel = const MethodChannel('mollie');
 
   /// Opens the browser to process the payment. Returns after payment is done.
@@ -35,5 +34,4 @@ class Mollie {
 
   static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
       _currentOrder = order;
-
 }

@@ -15,14 +15,9 @@ class MollieOrderStatus extends StatefulWidget {
 }
 
 class _MollieOrderStatusState extends State<MollieOrderStatus> {
-
-
-  List<String> orderStatus = [
-    "Created","Pending","Paid","Shipped"
-  ];
+  List<String> orderStatus = ["Created", "Pending", "Paid", "Shipped"];
 
   Widget shippmentProcess(String status) {
-
     int statusIndex = -1;
 
     switch (status) {
@@ -41,8 +36,7 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
 
     List<Widget> container = new List();
 
-    for(int i = 0; i < orderStatus.length; i++){
-
+    for (int i = 0; i < orderStatus.length; i++) {
       container.add(Expanded(
         flex: 3,
         child: Container(
@@ -53,21 +47,19 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                 child: Text(orderStatus[i]),
               ),
               Expanded(
-                child: Container(
+                  child: Container(
                 color: statusIndex >= i ? Colors.blue : Colors.grey,
               ))
             ],
           ),
         ),
       ));
-
     }
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: container,
     );
-
   }
 
   @override
@@ -80,7 +72,6 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
       body: ListView.builder(
           itemCount: widget.orders.length,
           itemBuilder: (context, index) {
-
             MollieOrderResponse o = widget.orders[index];
 
             DateTime date = new DateTime.fromMillisecondsSinceEpoch(
@@ -90,12 +81,10 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
 
             int items = 0;
 
-            for(MollieProductResponse p in o.products){
-
+            for (MollieProductResponse p in o.products) {
               items += p.quantity;
-
             }
-            
+
             return GestureDetector(
                 onTap: () {
                   widget.onSelectOrder(o);
@@ -118,42 +107,53 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.only(right: 15),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text("Order No",style: TextStyle(fontWeight: FontWeight.bold),),
-                                      Text(o.orderNumber)
-                                    ],
-                                  )
-                                ),
-                                Container(
-                                    margin: const EdgeInsets.only(right: 15),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text("Amount",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text(o.amount.value)
-                                      ],
-                                    )
-                                ),
-                                Container(
-                                    margin: const EdgeInsets.only(right: 15),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text(items.toString())
-                                      ],
-                                    )
-                                )
-                              ],
-                            )
-                          ),
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                      margin: const EdgeInsets.only(right: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "Order No",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(o.orderNumber)
+                                        ],
+                                      )),
+                                  Container(
+                                      margin: const EdgeInsets.only(right: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "Amount",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(o.amount.value)
+                                        ],
+                                      )),
+                                  Container(
+                                      margin: const EdgeInsets.only(right: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "Items",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(items.toString())
+                                        ],
+                                      ))
+                                ],
+                              )),
                           Container(
                             padding: const EdgeInsets.all(5),
                             alignment: Alignment.centerLeft,
@@ -162,14 +162,16 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                           Container(
                             padding: const EdgeInsets.all(5),
                             alignment: Alignment.centerLeft,
-                            child: Text("Status: " + o.status,style: TextStyle(fontWeight: FontWeight.bold),),
+                            child: Text(
+                              "Status: " + o.status,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              child: shippmentProcess(o.status),
+                              child: Container(
+                            padding: const EdgeInsets.all(5),
+                            child: shippmentProcess(o.status),
                           ))
-
                         ],
                       )),
                 ));

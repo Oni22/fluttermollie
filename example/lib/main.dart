@@ -112,22 +112,14 @@ class _MyAppState extends State<MyApp> {
     // use this in a new widget with a future builder
 
     MollieShipmentRequest r = new MollieShipmentRequest(
-      orderId: "asd",
-      carrier: "DHL",
-      trackingCode: "2i129e",
-      url: "u",
-      products: [
-        MollieShipmentProduct(
-          id: "1",
-          quantity: 12
-        ),
-        MollieShipmentProduct(
-            id: "122",
-            quantity: 12
-        )
-      ]
-
-    );
+        orderId: "asd",
+        carrier: "DHL",
+        trackingCode: "2i129e",
+        url: "u",
+        products: [
+          MollieShipmentProduct(id: "1", quantity: 12),
+          MollieShipmentProduct(id: "122", quantity: 12)
+        ]);
 
     print(r.toJson());
 

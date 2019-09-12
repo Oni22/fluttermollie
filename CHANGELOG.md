@@ -1,3 +1,7 @@
+## 0.7.1
+
+* hot fixes
+
 ## 0.7.0
 
 * added support for Shipment API
