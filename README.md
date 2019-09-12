@@ -379,7 +379,7 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
       useSofort: true,
     );
   }
-
+  
 ```
 
 
