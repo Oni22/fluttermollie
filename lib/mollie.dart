@@ -1,16 +1,16 @@
 library molli;
 
-export 'mollieaddress.dart';
-export 'mollieorder.dart';
-export 'mollieproduct.dart';
-export 'mollieamount.dart';
-export 'package:mollie/molliecheckout.dart';
-export 'mollieorderstatus.dart';
-export 'molliecustomer.dart';
-export 'molliesubscription.dart';
-export 'mollieshipment.dart';
+export 'package:mollie/src/mollieaddress.dart';
+export 'package:mollie/src/mollieorder.dart';
+export 'package:mollie/src/mollieproduct.dart';
+export 'package:mollie/src/mollieamount.dart';
+export 'package:mollie/src/molliecheckout.dart';
+export 'package:mollie/src/mollieorderstatus.dart';
+export 'package:mollie/src/molliecustomer.dart';
+export 'package:mollie/src/molliesubscription.dart';
+export 'package:mollie/src/mollieshipment.dart';
 
-import 'mollieorder.dart';
+import 'package:mollie/src/mollieorder.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 

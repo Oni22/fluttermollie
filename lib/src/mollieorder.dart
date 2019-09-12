@@ -1,8 +1,7 @@
-import 'package:mollie/mollieaddress.dart';
-import 'package:mollie/mollieamount.dart';
-import 'package:mollie/mollieproduct.dart';
+import 'package:mollie/src/mollieaddress.dart';
+import 'package:mollie/src/mollieamount.dart';
+import 'package:mollie/src/mollieproduct.dart';
 import 'dart:convert';
-import 'interfaces.dart';
 
 class MollieOrderRequest  {
   MollieAmount amount;

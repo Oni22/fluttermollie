@@ -1,4 +1,4 @@
-import 'package:mollie/mollieamount.dart';
+import 'package:mollie/src/mollieamount.dart';
 
 class MollieProductRequest {
   String type;

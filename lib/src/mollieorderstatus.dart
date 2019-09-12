@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'mollieorder.dart';
+import 'package:mollie/src/mollieorder.dart';
 import 'package:intl/intl.dart';
 
-import 'mollieproduct.dart';
+import 'package:mollie/src/mollieproduct.dart';
 
 /// Builds a list view of all orders
 class MollieOrderStatus extends StatefulWidget {

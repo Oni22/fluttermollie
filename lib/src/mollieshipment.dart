@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'mollieproduct.dart';
+import 'package:mollie/src/mollieproduct.dart';
 
 class MollieShipmentProduct {
 
