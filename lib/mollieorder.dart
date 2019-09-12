@@ -103,8 +103,7 @@ class MollieOrderResponse {
   }
 
   String getMethodFormatted() {
-
-    switch(method){
+    switch (method) {
       case "paypal":
         return "PayPal";
       case "creditcard":
@@ -114,6 +113,5 @@ class MollieOrderResponse {
       default:
         return "No method selected";
     }
-
   }
 }
