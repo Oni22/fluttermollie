@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="546dd82a-21b0-4964-950a-4a5a86f6923e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/mollie/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/mollie/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/mollie/lib/molliecheckout.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/mollie/lib/molliecheckout.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/molliecheckout.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/molliecheckout.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/example/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -66,7 +64,7 @@
           <entry key="gradle" value="11" />
           <entry key="java" value="1960" />
           <entry key="m" value="70" />
-          <entry key="md" value="700" />
+          <entry key="md" value="720" />
           <entry key="swift" value="206" />
           <entry key="xml" value="7" />
           <entry key="yaml" value="488" />
@@ -78,7 +76,7 @@
           <entry key="Groovy" value="11" />
           <entry key="JAVA" value="1960" />
           <entry key="ObjectiveC" value="70" />
-          <entry key="PLAIN_TEXT" value="920" />
+          <entry key="PLAIN_TEXT" value="940" />
           <entry key="XML" value="7" />
           <entry key="YAML" value="488" />
         </counts>
@@ -111,11 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/molliecheckout.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="186" column="32" lean-forward="true" selection-start-line="186" selection-start-column="32" selection-end-line="186" selection-end-column="32" />
+            <state relative-caret-position="368">
+              <caret line="194" column="24" lean-forward="true" selection-start-line="194" selection-start-column="24" selection-end-line="194" selection-end-column="24" />
               <folding>
                 <element signature="e#2#41#0" expanded="true" />
               </folding>
@@ -162,11 +160,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+            <state relative-caret-position="189">
+              <caret line="345" column="28" selection-start-line="345" selection-start-column="28" selection-end-line="345" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -174,8 +172,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2553">
-              <caret line="172" column="19" selection-start-line="172" selection-start-column="19" selection-end-line="172" selection-end-column="19" />
+            <state relative-caret-position="251">
+              <caret line="139" column="26" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -224,10 +222,10 @@
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/example/README.md" />
         <option value="$PROJECT_DIR$/lib/mollie.dart" />
         <option value="$PROJECT_DIR$/lib/molliecheckout.dart" />
+        <option value="$PROJECT_DIR$/example/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -351,7 +349,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978903" visible="true" weight="0.2639485" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978903" visible="true" weight="0.2639485" />
       <window_info id="Captures" order="1" side_tool="true" />
       <window_info id="Structure" order="2" sideWeight="0.5021097" side_tool="true" weight="0.23104435" />
       <window_info id="Image Layers" order="3" />
@@ -360,12 +358,12 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49928468" visible="true" weight="0.3698795" />
+      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49928468" weight="0.3698795" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32891566" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.32891566" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.45903614" />
-      <window_info anchor="bottom" id="Terminal" order="6" weight="0.32891566" />
+      <window_info anchor="bottom" id="Terminal" order="6" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5007153" side_tool="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Flutter Performance" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
@@ -625,20 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2553">
-          <caret line="172" column="19" selection-start-line="172" selection-start-column="19" selection-end-line="172" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/mollie.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -651,11 +635,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/molliecheckout.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="186" column="32" lean-forward="true" selection-start-line="186" selection-start-column="32" selection-end-line="186" selection-end-column="32" />
+        <state relative-caret-position="368">
+          <caret line="194" column="24" lean-forward="true" selection-start-line="194" selection-start-column="24" selection-end-line="194" selection-end-column="24" />
           <folding>
             <element signature="e#2#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="139" column="26" selection-start-line="139" selection-start-column="26" selection-end-line="139" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="345" column="28" selection-start-line="345" selection-start-column="28" selection-end-line="345" selection-end-column="28" />
         </state>
       </provider>
     </entry>

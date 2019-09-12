@@ -341,7 +341,7 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
 
     /// send a POST request to your server with the created MollieOrderRequest
     var orderResponse = await http.post(
-        "http://blackboxshisha.herokuapp.com/mollie/create/order",
+        "http://yourserver.herokuapp.com/mollie/create/order",
         headers: {"Content-Type": "application/json"},
         body: order.toJson()
     );
