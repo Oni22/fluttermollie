@@ -2,8 +2,9 @@ import 'package:mollie/mollieaddress.dart';
 import 'package:mollie/mollieamount.dart';
 import 'package:mollie/mollieproduct.dart';
 import 'dart:convert';
+import 'interfaces.dart';
 
-class MollieOrderRequest {
+class MollieOrderRequest  {
   MollieAmount amount;
   MollieAddress shippingAddress;
   MollieAddress billingAddress;
@@ -54,6 +55,7 @@ class MollieOrderRequest {
 }
 
 class MollieOrderResponse {
+
   String id;
   MollieAmount amount;
   MollieAddress shippingAddress;
@@ -70,6 +72,7 @@ class MollieOrderResponse {
   String orderNumber;
   String createdAt;
   String expiresAt;
+  String mode;
 
   MollieOrderResponse.build(dynamic data) {
     id = data["id"];
@@ -82,6 +85,8 @@ class MollieOrderResponse {
 
     createdAt = data["createdAt"];
     expiresAt = data["expiredAt"];
+
+    mode = data["mode"];
 
     metaData = data["metaData"];
 

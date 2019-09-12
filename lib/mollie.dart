@@ -6,6 +6,8 @@ export 'mollieproduct.dart';
 export 'mollieamount.dart';
 export 'package:mollie/molliecheckout.dart';
 export 'mollieorderstatus.dart';
+export 'molliecustomer.dart';
+export 'molliesubscription.dart';
 
 import 'mollieorder.dart';
 import 'dart:async';
@@ -16,6 +18,7 @@ class Mollie {
   static final creditCard = "creditcard";
   static final payPal = "paypal";
   static final sepa = "sepa"; //TODO not working!
+
 
   static const MethodChannel _channel = const MethodChannel('mollie');
 
@@ -31,4 +34,5 @@ class Mollie {
 
   static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
       _currentOrder = order;
+
 }

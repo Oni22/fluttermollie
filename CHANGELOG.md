@@ -1,3 +1,18 @@
+## 0.7.0
+
+* added support for Shipment API
+* added support for Subscription API
+* added support for Customers API
+* support for iDEAL
+* support for ApplePay
+* SEPA banktransfer fixed
+* Improved MollieCheckout
+* improved MollieOrderStatus widget
+
+## 0.6.1
+
+* fixes
+
 ## 0.6.0
 
 * MollieCheckout attributes changed (see documentation)

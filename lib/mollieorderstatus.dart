@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'mollieorder.dart';
 import 'package:intl/intl.dart';
 
+import 'mollieproduct.dart';
+
 /// Builds a list view of all orders
-/// This widget is still in Alpha.
 class MollieOrderStatus extends StatefulWidget {
   final List<MollieOrderResponse> orders;
-  final Function() onSelectOrder;
+  final Function(MollieOrderResponse) onSelectOrder;
 
   MollieOrderStatus({@required this.orders, this.onSelectOrder});
 
@@ -14,27 +15,72 @@ class MollieOrderStatus extends StatefulWidget {
 }
 
 class _MollieOrderStatusState extends State<MollieOrderStatus> {
-  Color getStatusColor(String status) {
+
+
+  List<String> orderStatus = [
+    "Created","Pending","Paid","Shipped"
+  ];
+
+  Widget shippmentProcess(String status) {
+
+    int statusIndex = -1;
+
     switch (status) {
       case "created":
-        return Colors.orange;
+        statusIndex = 0;
+        break;
       case "pending":
-        return Colors.orange;
+        statusIndex = 1;
+        break;
       case "paid":
-        return Colors.green;
-      case "canceled":
-        return Colors.red;
-      default:
-        return Colors.grey;
+        statusIndex = 2;
+        break;
+      case "shipped":
+        statusIndex = 3;
     }
+
+    List<Widget> container = new List();
+
+    for(int i = 0; i < orderStatus.length; i++){
+
+      container.add(Expanded(
+        flex: 3,
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                child: Text(orderStatus[i]),
+              ),
+              Expanded(
+                child: Container(
+                color: statusIndex >= i ? Colors.blue : Colors.grey,
+              ))
+            ],
+          ),
+        ),
+      ));
+
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: container,
+    );
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text("Orders"),
+      ),
       body: ListView.builder(
           itemCount: widget.orders.length,
           itemBuilder: (context, index) {
+
             MollieOrderResponse o = widget.orders[index];
 
             DateTime date = new DateTime.fromMillisecondsSinceEpoch(
@@ -42,11 +88,17 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
             var formatter = new DateFormat("dd.MM.yyyy");
             String formattedDate = formatter.format(date);
 
-            Color status = getStatusColor(o.status);
+            int items = 0;
 
+            for(MollieProductResponse p in o.products){
+
+              items += p.quantity;
+
+            }
+            
             return GestureDetector(
                 onTap: () {
-                  widget.onSelectOrder();
+                  widget.onSelectOrder(o);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -61,64 +113,66 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                             offset: Offset(1, 1))
                       ]),
                       width: MediaQuery.of(context).size.width,
-                      height: 120,
+                      height: 140,
                       //padding: const EdgeInsets.all(20),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: status,
-                              ),
-                            ),
-                            Expanded(
-                                flex: 12,
-                                child: Container(
-                                    padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: const EdgeInsets.only(right: 15),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text("Order No",style: TextStyle(fontWeight: FontWeight.bold),),
+                                      Text(o.orderNumber)
+                                    ],
+                                  )
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.only(right: 15),
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            o.products[0].name + "...",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "Status: " + o.status,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "Ordernr.: " + o.orderNumber,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "Ordered: " + formattedDate,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                        ),
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text("Amount",style: TextStyle(fontWeight: FontWeight.bold),),
+                                        Text(o.amount.value)
                                       ],
-                                    )))
-                          ])),
+                                    )
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.only(right: 15),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text("Items",style: TextStyle(fontWeight: FontWeight.bold),),
+                                        Text(items.toString())
+                                      ],
+                                    )
+                                )
+                              ],
+                            )
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            alignment: Alignment.centerLeft,
+                            child: Text("Order placed on " + formattedDate),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            alignment: Alignment.centerLeft,
+                            child: Text("Status: " + o.status,style: TextStyle(fontWeight: FontWeight.bold),),
+                          ),
+                          Expanded(
+                            child: Container(
+                              color: Colors.green,
+                              padding: const EdgeInsets.all(5),
+                              child: shippmentProcess(o.status),
+                          ))
+
+                        ],
+                      )),
                 ));
           }),
     );
