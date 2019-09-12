@@ -70,6 +70,7 @@ class MollieOrderResponse {
   String orderNumber;
   String createdAt;
   String expiresAt;
+  String mode;
 
   MollieOrderResponse.build(dynamic data) {
     id = data["id"];
@@ -82,6 +83,8 @@ class MollieOrderResponse {
 
     createdAt = data["createdAt"];
     expiresAt = data["expiredAt"];
+
+    mode = data["mode"];
 
     metaData = data["metaData"];
 

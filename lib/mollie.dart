@@ -6,6 +6,8 @@ export 'mollieproduct.dart';
 export 'mollieamount.dart';
 export 'package:mollie/molliecheckout.dart';
 export 'mollieorderstatus.dart';
+export 'molliecustomer.dart';
+export 'molliesubscription.dart';
 
 import 'mollieorder.dart';
 import 'dart:async';

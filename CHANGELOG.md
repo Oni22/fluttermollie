@@ -1,3 +1,7 @@
+## 0.6.1
+
+* fixes
+
 ## 0.6.0
 
 * MollieCheckout attributes changed (see documentation)
