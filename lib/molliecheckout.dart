@@ -33,7 +33,9 @@ class MollieCheckout extends StatefulWidget {
 }
 
 class _MollieCheckoutState extends State<MollieCheckout> {
+
   List<Widget> paymentMethods = new List();
+  CheckoutStyle style;
 
   void _setMethod(String method){
 
@@ -43,8 +45,13 @@ class _MollieCheckoutState extends State<MollieCheckout> {
   }
 
   void _buildPaymentMethods() {
-    CheckoutStyle style = widget.style == null
+
+    style = widget.style == null
         ? CheckoutStyle(
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              title: Text("Checkout"),
+            ),
             buttonColor: Colors.black,
             textStyle:
                 TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
@@ -168,36 +175,52 @@ class _MollieCheckoutState extends State<MollieCheckout> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.style != null && widget.style.appBar != null) {
-      return Scaffold(
-          appBar: widget.style.appBar,
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                    margin: const EdgeInsets.only(bottom: 40, top: 40),
-                    child: Text("Select a payment method.")),
-                Container(
-                    child: Column(
-                  children: paymentMethods,
-                ))
-              ],
-            ),
-          ));
-    }
+    return Scaffold(
+        appBar: style.appBar,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  margin: const EdgeInsets.only(bottom: 40, top: 40),
+                  child: Text("Select a payment method.")),
+              Container(
+                  child: Column(
+                    children: paymentMethods,
+                  ))
+            ],
+          ),
+        ));
 
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-              margin: const EdgeInsets.only(bottom: 40, top: 40),
-              child: Text("Select a payment method.")),
-          Container(
-              child: Column(
-            children: paymentMethods,
-          ))
-        ],
-      ),
-    );
+    //if (widget.style != null && widget.style.appBar != null) {
+    //  return Scaffold(
+    //      appBar: widget.style.appBar,
+    //      body: SingleChildScrollView(
+    //        child: Column(
+    //          children: <Widget>[
+    //            Container(
+    //                margin: const EdgeInsets.only(bottom: 40, top: 40),
+    //                child: Text("Select a payment method.")),
+    //            Container(
+    //                child: Column(
+    //              children: paymentMethods,
+    //            ))
+    //          ],
+    //        ),
+    //      ));
+    //}
+//
+    //return SingleChildScrollView(
+    //  child: Column(
+    //    children: <Widget>[
+    //      Container(
+    //          margin: const EdgeInsets.only(bottom: 40, top: 40),
+    //          child: Text("Select a payment method.")),
+    //      Container(
+    //          child: Column(
+    //        children: paymentMethods,
+    //      ))
+    //    ],
+    //  ),
+    //);
   }
 }
