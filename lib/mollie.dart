@@ -14,10 +14,12 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Mollie {
+
   static final klarnaPayNow = "sofort";
   static final creditCard = "creditcard";
   static final payPal = "paypal";
   static final sepa = "sepa"; //TODO not working!
+
 
   static const MethodChannel _channel = const MethodChannel('mollie');
 
@@ -34,4 +36,5 @@ class Mollie {
 
   static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
       _currentOrder = order;
+
 }

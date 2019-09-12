@@ -110,6 +110,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> createOrder(MollieOrderRequest order) async {
     // use this in a new widget with a future builder
+
     var orderResponse = await http.post(
         "http://blackboxshisha.herokuapp.com/mollie/create/order",
         headers: {"Content-Type": "application/json"},
@@ -132,8 +133,10 @@ class _MyAppState extends State<MyApp> {
       },
       useCredit: true,
       usePaypal: true,
-      useSepa: true,
+      useApplePay: true,
       useSofort: true,
+      useSepa: true,
+      useIdeal: true,
     );
   }
 }

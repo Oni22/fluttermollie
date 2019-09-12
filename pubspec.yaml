@@ -1,6 +1,6 @@
 name: mollie
 description: Implement the Mollie checkout process easily into your Flutter app
-version: 0.6.1
+version: 0.7.0
 author: Onur Özkan <contact@onurozkan.net>
 homepage: https://github.com/Oni22/fluttermollie
 
@@ -40,6 +40,7 @@ flutter:
     - assets/icons/klarna-rechnung-alt.png
     - assets/icons/sepa.png
     - assets/icons/ideal.png
+    - assets/icons/applepay.png
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

@@ -173,6 +173,8 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
       usePaypal: true,
       useSepa: true,
       useSofort: true,
+      useIdeal: true,
+      useApplePay: true
     );
   }
 
@@ -187,6 +189,8 @@ Currently supported payment methods:
 - Paypal
 - SEPA
 - Klarna Sofort
+- Apple Pay
+- iDEAL
 
 
 PROFIT! :)

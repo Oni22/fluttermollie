@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'mollieproduct.dart';
 
 /// Builds a list view of all orders
-/// This widget is still in Alpha.
 class MollieOrderStatus extends StatefulWidget {
   final List<MollieOrderResponse> orders;
   final Function(MollieOrderResponse) onSelectOrder;
@@ -17,20 +16,6 @@ class MollieOrderStatus extends StatefulWidget {
 
 class _MollieOrderStatusState extends State<MollieOrderStatus> {
 
-  Color getStatusColor(String status) {
-    switch (status) {
-      case "created":
-        return Colors.orange;
-      case "pending":
-        return Colors.orange;
-      case "paid":
-        return Colors.green;
-      case "canceled":
-        return Colors.red;
-      default:
-        return Colors.grey;
-    }
-  }
 
   List<String> orderStatus = [
     "Created","Pending","Paid","Shipped"
@@ -110,9 +95,7 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
               items += p.quantity;
 
             }
-
-            Color status = getStatusColor(o.status);
-
+            
             return GestureDetector(
                 onTap: () {
                   widget.onSelectOrder(o);
@@ -182,11 +165,11 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                             child: Text("Status: " + o.status,style: TextStyle(fontWeight: FontWeight.bold),),
                           ),
                           Expanded(
-                            child:SizedBox.expand(
                             child: Container(
-                            padding: const EdgeInsets.all(5),
-                            child: shippmentProcess(o.status),
-                          )))
+                              color: Colors.green,
+                              padding: const EdgeInsets.all(5),
+                              child: shippmentProcess(o.status),
+                          ))
 
                         ],
                       )),

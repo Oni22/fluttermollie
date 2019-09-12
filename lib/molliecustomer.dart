@@ -3,7 +3,6 @@ import 'dart:convert';
 
 class MollieCustomer {
 
-  String resource;
   String id;
   String mode;
   String name;
@@ -15,7 +14,6 @@ class MollieCustomer {
   String documentationUrl;
 
   MollieCustomer({
-    this.resource,
     this.id,
     this.mode,
     this.name,
