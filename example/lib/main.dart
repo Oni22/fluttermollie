@@ -111,34 +111,40 @@ class _MyAppState extends State<MyApp> {
   Future<void> createOrder(MollieOrderRequest order) async {
     // use this in a new widget with a future builder
 
-    MollieShipmentRequest r = new MollieShipmentRequest(
-        orderId: "asd",
-        carrier: "DHL",
-        trackingCode: "2i129e",
-        url: "u",
-        products: [
-          MollieShipmentProduct(id: "1", quantity: 12),
-          MollieShipmentProduct(id: "122", quantity: 12)
-        ]);
+    client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
 
-    print(r.toJson());
+    o.billingAddress.givenName = "Oni";
+    var m = MollieOrderLine(
+      orderLineId: "odl_13z2uy",
+      orderId: "ord_4nyzcq",
+      name: "TEST 123",
+      productUrl: "https://shop.lego.com/en-GB/product/Hogwarts-Castle-71043",
+      imageUrl: "https://sh-s7-live-s.legocdn.com/is/image//LEGO/71043_alt1?"
+    );
+    var order2 = await client.orders.updateOrderLine(m);
+    print("STATUS: " + order2.products[0].id);
 
-    var orderResponse = await http.post(
-        "http://blackboxshisha.herokuapp.com/mollie/create/order",
-        headers: {"Content-Type": "application/json"},
-        body: order.toJson());
+//
+   //var orderResponse = await http.post(
+   //    "http://blackboxshisha.herokuapp.com/mollie/create/order",
+   //    headers: {"Content-Type": "application/json"},
+   //    body: order.toJson());
 
-    var data = json.decode(orderResponse.body);
-    MollieOrderResponse res = MollieOrderResponse.build(data);
+   //var data = json.decode(orderResponse.body);
+   //MollieOrderResponse res = MollieOrderResponse.build(data);
 
-    Mollie.setCurrentOrder(res);
+   //Mollie.setCurrentOrder(res);
 
-    Mollie.startPayment(res.checkoutUrl);
+   //Mollie.startPayment(res.checkoutUrl);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MollieCheckout(
+    return Scaffold(
+      body: Center(
+        child: RaisedButton(onPressed: () {createOrder(null);}),
+      ),
+    );/*MollieCheckout(
       order: o,
       onMethodSelected: (order) {
         createOrder(order);
@@ -149,7 +155,7 @@ class _MyAppState extends State<MyApp> {
       useSofort: true,
       useSepa: true,
       useIdeal: true,
-    );
+    );*/
   }
 }
 

@@ -102,7 +102,9 @@ class MollieOrderResponse {
     method = data["method"];
     orderNumber = data["orderNumber"];
 
-    checkoutUrl = data["_links"]["checkout"]["href"];
+    if(data["_links"].containsKey("checkout")){
+      checkoutUrl = data["_links"]["checkout"]["href"];
+    }
   }
 
   String getMethodFormatted() {
