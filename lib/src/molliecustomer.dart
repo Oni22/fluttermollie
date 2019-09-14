@@ -48,6 +48,9 @@ class MollieCustomer {
     metaData = data["metadata"];
     createdAt = data["createdAt"];
     selfUrl = data["_links"]["self"]["href"];
-    documentationUrl = data["_links"]["documentations"]["href"];
+
+    if(data["_links"].containsKey("documentation")){
+      documentationUrl = data["_links"]["documentation"]["href"];
+    }
   }
 }

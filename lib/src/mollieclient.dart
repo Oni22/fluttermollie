@@ -1,9 +1,6 @@
 
-import 'mollieshipment.dart';
-import 'molliesubscription.dart';
-import 'molliecustomer.dart';
-import 'mollieorder.dart';
 import 'package:mollie/internal/orderhandler.dart';
+import 'package:mollie/internal/customerhandler.dart';
 
 class MollieClient {
 
@@ -11,6 +8,7 @@ class MollieClient {
   var headers;
 
   OrderHandler orders;
+  CustomerHandler customers;
 
   static final MollieClient _instance = MollieClient._internal();
 
@@ -29,6 +27,8 @@ class MollieClient {
     };
 
     orders = OrderHandler(headers);
+    customers = CustomerHandler(headers);
+
 
   }
 

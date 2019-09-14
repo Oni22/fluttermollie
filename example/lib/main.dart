@@ -113,16 +113,9 @@ class _MyAppState extends State<MyApp> {
 
     client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
 
-    o.billingAddress.givenName = "Oni";
-    var m = MollieOrderLine(
-      orderLineId: "odl_13z2uy",
-      orderId: "ord_4nyzcq",
-      name: "TEST 123",
-      productUrl: "https://shop.lego.com/en-GB/product/Hogwarts-Castle-71043",
-      imageUrl: "https://sh-s7-live-s.legocdn.com/is/image//LEGO/71043_alt1?"
-    );
-    var order2 = await client.orders.updateOrderLine(m);
-    print("STATUS: " + order2.products[0].id);
+    
+    var order2 = await client.customers.delete("cst_4xhKvPe2D9");
+    print("STATUS: " + order2);
 
 //
    //var orderResponse = await http.post(
