@@ -1,3 +1,8 @@
+## 0.8.1
+
+* Added support for Payment API calls via client
+* Added support for Subscription API calls via client
+
 ## 0.8.0
 
 * Added support for client requests

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:mollie/src/mollieamount.dart';
 
 class MollieSubscriptionRequest {
-  String customerId;
   MollieAmount amount;
   int times;
   String interval;
@@ -10,7 +9,7 @@ class MollieSubscriptionRequest {
   String webhookUrl;
 
   MollieSubscriptionRequest(
-      {this.customerId,
+      {
       this.amount,
       this.interval,
       this.description,
@@ -19,7 +18,6 @@ class MollieSubscriptionRequest {
 
   String toJson() {
     return json.encode({
-      "customerId": customerId,
       "amount": amount.toMap(),
       "times": times,
       "interval": interval,
@@ -36,8 +34,8 @@ class MollieSubscriptionResponse {
   String status;
   MollieAmount amount;
   String value;
-  String times;
-  String timesRemaining;
+  int times;
+  int timesRemaining;
   String interval;
   String description;
   String startDate;

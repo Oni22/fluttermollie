@@ -10,6 +10,7 @@ export 'package:mollie/src/molliecustomer.dart';
 export 'package:mollie/src/molliesubscription.dart';
 export 'package:mollie/src/mollieshipment.dart';
 export 'package:mollie/src/mollieorderline.dart';
+export 'package:mollie/src/molliepayment.dart';
 
 import 'package:mollie/src/mollieclient.dart';
 import 'package:mollie/src/mollieorder.dart';

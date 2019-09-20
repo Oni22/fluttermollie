@@ -113,9 +113,32 @@ class _MyAppState extends State<MyApp> {
 
     client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
 
-    
-    var order2 = await client.customers.create("Steve", "steve@gmail.com");
-    print(order2.name);
+    MollieSubscriptionRequest s = new MollieSubscriptionRequest(
+      amount: MollieAmount(
+        currency: 'EUR',
+        value: '25.00',
+      ),
+      times: 4,
+      interval: '3 months',
+      description: 'Quarterly payment',
+      webhookUrl: 'https://webshop.example.org/subscriptions/webhook/',
+    );
+
+    MolliePaymentRequest r = new MolliePaymentRequest(
+      amount: MollieAmount(
+        currency: 'EUR',
+        value: '30.00',
+      ),
+      description: 'My first payment',
+      redirectUrl: 'https://webshop.example.org/order/12345/',
+      webhookUrl: 'https://webshop.example.org/payments/webhook/',
+    );
+
+    var payment = await client.payments.listPayments();
+    print(payment.length);
+
+    //var order2 = await client.subscription.create(s,"cst_zsR82cCtB5");
+    //print(order2.status);
 
 //
    //var orderResponse = await http.post(
