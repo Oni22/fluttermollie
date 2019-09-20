@@ -255,7 +255,9 @@ You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom
 
 # USING THE PLUGIN
 
-Now we can use the plugin.
+The MollieCheckout widget works with the client method and the client-server method.
+In this example we will use the client-server method.
+
 
 **1. Import the plugin**
 ```dart
