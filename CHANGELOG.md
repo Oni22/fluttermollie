@@ -1,3 +1,9 @@
+## 0.8.0
+
+* Added support for client requests
+* Added support for Customer API calls via client
+* Added support for Order API calls via client
+
 ## 0.7.1
 
 * hot fixes

@@ -2,7 +2,58 @@
 
 A Flutter plugin for mollie payments
 
-## Getting Started (SERVER SIDE)
+
+
+## Using the client method (NEW)
+
+With version 0.8.0 the Mollie plugin supports client requests directly from your app.
+This feature is currently in beta.
+
+Currently supported APIs:
+
+- Orders API
+- Customers API
+
+
+**How to use the client method**
+
+**1. Import the plugin**
+```dart
+import 'package:mollie/mollie.dart';
+```
+
+
+**2. Initialize your client with your api key. This have to be called only once:**
+
+```
+
+    client.init("test_TUIAGS980q2ezahdoas");
+
+```
+
+
+**3. Use the client for requests:**
+
+```
+
+    Future<void> createCustomer() async {
+
+        client.init("test_TUIAGS980q2ezahdoas");
+
+        var customer = await client.customers.create("Steve", "steve@gmail.com");
+        print(customer.name);
+    }
+
+```
+
+
+
+**If you want to build a client-server architecture (recommended) read the next part.**
+
+
+
+
+## Getting Started client-server architecture (SERVER SIDE)
 
 Before you can start to use this plugin you have to setup your server first. Mollie's Mobile API is based on a server-client architecture because of that you have to setup a server for example with heroku.
 
@@ -46,7 +97,7 @@ app.post("/your/custom/path",(req,res) => {
 
 ```
 
-## Getting Started (CLIENT SIDE)
+## Getting Started client-server architecture (CLIENT SIDE)
 
 Now we need to setup a few things for iOS and Android.
 

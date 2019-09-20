@@ -1,6 +1,54 @@
 # USING THE PLUGIN
 
-Now we can use the plugin.
+
+## Using the client method (NEW)
+
+With version 0.8.0 the Mollie plugin supports client requests directly from your app.
+This feature is currently in beta.
+
+Currently supported APIs:
+
+- Orders API
+- Customers API
+
+
+**How to use the client method**
+
+**1. Import the plugin**
+```dart
+import 'package:mollie/mollie.dart';
+```
+
+
+**2. Initialize your client with your api key. This have to be called only once:**
+
+```
+
+    client.init("test_TUIAGS980q2ezahdoas");
+
+```
+
+
+**3. Use the client for requests:**
+
+```
+
+    Future<void> createCustomer() async {
+
+        client.init("test_TUIAGS980q2ezahdoas");
+
+        var customer = await client.customers.create("Steve", "steve@gmail.com");
+        print(customer.name);
+    }
+
+```
+
+
+## Using the MollieCheckout widget
+
+The MollieCheckout widget works with the client method and the client-server method.
+In this example we will use the client-server method.
+
 
 **1. Import the plugin**
 ```dart

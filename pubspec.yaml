@@ -1,6 +1,6 @@
 name: mollie
 description: Implement the Mollie checkout process easily into your Flutter app
-version: 0.7.1
+version: 0.8.0
 author: Onur Özkan <contact@onurozkan.net>
 homepage: https://github.com/Oni22/fluttermollie
 

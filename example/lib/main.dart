@@ -114,8 +114,8 @@ class _MyAppState extends State<MyApp> {
     client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
 
     
-    var order2 = await client.customers.delete("cst_4xhKvPe2D9");
-    print("STATUS: " + order2);
+    var order2 = await client.customers.create("Steve", "steve@gmail.com");
+    print(order2.name);
 
 //
    //var orderResponse = await http.post(
