@@ -1,11 +1,9 @@
-
 import 'package:mollie/internal/orderhandler.dart';
 import 'package:mollie/internal/customerhandler.dart';
 import 'package:mollie/internal/subscriptionhandler.dart';
 import 'package:mollie/internal/paymenthandler.dart';
 
 class MollieClient {
-
   String _apiKey;
   var headers;
 
@@ -22,7 +20,6 @@ class MollieClient {
 
   /// Sets the api key
   void init(String apiKey) {
-
     _apiKey = apiKey;
 
     headers = {
@@ -34,9 +31,5 @@ class MollieClient {
     customers = CustomerHandler(headers);
     subscription = SubscriptionHandler(headers);
     payments = PaymentHandler(headers);
-
   }
-
-
-
 }

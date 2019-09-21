@@ -9,8 +9,7 @@ class MollieSubscriptionRequest {
   String webhookUrl;
 
   MollieSubscriptionRequest(
-      {
-      this.amount,
+      {this.amount,
       this.interval,
       this.description,
       this.webhookUrl,

@@ -139,28 +139,30 @@ class _MyAppState extends State<MyApp> {
     var payment = await client.payments.listPayments();
     print(payment.length);
 
-
     // client-server example
-   //var orderResponse = await http.post(
-   //    "http://blackboxshisha.herokuapp.com/mollie/create/order",
-   //    headers: {"Content-Type": "application/json"},
-   //    body: order.toJson());
+    //var orderResponse = await http.post(
+    //    "http://blackboxshisha.herokuapp.com/mollie/create/order",
+    //    headers: {"Content-Type": "application/json"},
+    //    body: order.toJson());
 
-   //var data = json.decode(orderResponse.body);
-   //MollieOrderResponse res = MollieOrderResponse.build(data);
+    //var data = json.decode(orderResponse.body);
+    //MollieOrderResponse res = MollieOrderResponse.build(data);
 
-   //Mollie.setCurrentOrder(res);
+    //Mollie.setCurrentOrder(res);
 
-   //Mollie.startPayment(res.checkoutUrl);
+    //Mollie.startPayment(res.checkoutUrl);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(onPressed: () {createOrder(null);}),
+        child: RaisedButton(onPressed: () {
+          createOrder(null);
+        }),
       ),
-    );/*MollieCheckout(
+    );
+    /*MollieCheckout(
       order: o,
       onMethodSelected: (order) {
         createOrder(order);

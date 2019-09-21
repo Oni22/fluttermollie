@@ -20,8 +20,6 @@ import 'package:flutter/services.dart';
 MollieClient client = new MollieClient();
 
 class Mollie {
-
-
   final klarnaPayNow = "sofort";
   final creditCard = "creditcard";
   final payPal = "paypal";
@@ -43,7 +41,4 @@ class Mollie {
 
   static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
       _currentOrder = order;
-
-
-
 }

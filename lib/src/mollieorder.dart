@@ -102,7 +102,7 @@ class MollieOrderResponse {
     method = data["method"];
     orderNumber = data["orderNumber"];
 
-    if(data["_links"].containsKey("checkout")){
+    if (data["_links"].containsKey("checkout")) {
       checkoutUrl = data["_links"]["checkout"]["href"];
     }
   }

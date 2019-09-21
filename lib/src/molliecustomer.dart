@@ -49,7 +49,7 @@ class MollieCustomer {
     createdAt = data["createdAt"];
     selfUrl = data["_links"]["self"]["href"];
 
-    if(data["_links"].containsKey("documentation")){
+    if (data["_links"].containsKey("documentation")) {
       documentationUrl = data["_links"]["documentation"]["href"];
     }
   }

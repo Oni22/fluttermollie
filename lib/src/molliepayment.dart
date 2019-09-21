@@ -1,10 +1,7 @@
-
-
 import 'dart:convert';
 import 'package:mollie/src/mollieamount.dart';
 
 class MolliePaymentRequest {
-
   MollieAmount amount;
   String description;
   String webhookUrl;
@@ -12,12 +9,11 @@ class MolliePaymentRequest {
   dynamic metaData;
 
   MolliePaymentRequest(
-      {
-        this.amount,
-        this.redirectUrl,
-        this.description,
-        this.webhookUrl,
-        this.metaData});
+      {this.amount,
+      this.redirectUrl,
+      this.description,
+      this.webhookUrl,
+      this.metaData});
 
   String toJson() {
     return json.encode({
@@ -31,7 +27,6 @@ class MolliePaymentRequest {
 }
 
 class MolliePaymentResponse {
-
   String id;
   String mode;
   String createdAt;
@@ -67,13 +62,12 @@ class MolliePaymentResponse {
     method = data["method"];
     webhookUrl = data["weebhookUrl"];
 
-    if(data["_links"].containsKey("checkout"))
+    if (data["_links"].containsKey("checkout"))
       checkoutUrl = data["_links"]["checkout"]["href"];
 
-    if(data["_links"].containsKey("documentation"))
+    if (data["_links"].containsKey("documentation"))
       documentationUrl = data["_links"]["documentation"]["href"];
 
     selfUrl = data["_links"]["self"]["href"];
   }
 }
-
