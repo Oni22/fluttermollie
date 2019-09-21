@@ -47,7 +47,7 @@ app.post("/your/custom/path",(req,res) => {
 
 ```
 
-** Getting started to use the plugin **
+### Getting started to use the plugin
 
 **1. Import the plugin**
 ```dart
