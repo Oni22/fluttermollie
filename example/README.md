@@ -1,54 +1,55 @@
 # USING THE PLUGIN
 
 
-## Using the client method (NEW)
-
-With version 0.8.0 the Mollie plugin supports client requests directly from your app.
-This feature is currently in beta.
-
-Currently supported APIs:
-
-- Orders API
-- Customers API
-
-
-**How to use the client method**
-
-**1. Import the plugin**
-```dart
-import 'package:mollie/mollie.dart';
-```
-
-
-**2. Initialize your client with your api key. This have to be called only once:**
-
-```
-
-    client.init("test_TUIAGS980q2ezahdoas");
-
-```
-
-
-**3. Use the client for requests:**
-
-```
-
-    Future<void> createCustomer() async {
-
-        client.init("test_TUIAGS980q2ezahdoas");
-
-        var customer = await client.customers.create("Steve", "steve@gmail.com");
-        print(customer.name);
-    }
-
-```
-
-
-## Using the MollieCheckout widget
-
 The MollieCheckout widget works with the client method and the client-server method.
-In this example we will use the client-server method.
+We will show you both implementations.
 
+If you want to use the client method step over this step an go to "Getting started to use the plugin".
+
+** If you are using client-server architecture **
+
+If you are using a client-server architecture you have to setup your server first for example with heroku.
+In the following example we will use Node.js with Express.js to do our API calls.
+
+**1. After you setup your Node.js server you have to install the Mollie package. Go into your working directory and type:**
+
+```
+npm install @mollie/api-client@beta --save
+
+```
+
+For detailed instructions go to https://github.com/mollie/mollie-api-node
+
+**2. Initialize Mollie:**
+
+```javascript
+
+const { createMollieClient } = require('@mollie/api-client');
+const mollieClient = createMollieClient({ apiKey: 'test_AFkJP7UuC3wddaeGasdG2UffGTdkmd8re'});
+
+```
+
+You can find your API test and public keys in your Mollie Dashboard under the developer tab.
+
+**3. Create an order:**
+
+```javascript
+
+const { createMollieClient } = require('@mollie/api-client');
+const mollieClient = createMollieClient({ apiKey: 'test_AFkJP7UuC3wddaeGasdG2UffGTdkmd8re'});
+
+app.post("/your/custom/path",(req,res) => {
+
+  mollieClient.orders.create(req.body).then(order => {
+    res.send(order);
+  }).catch(error => {
+    res.send(error);
+  });
+});
+
+```
+
+** Getting started to use the plugin **
 
 **1. Import the plugin**
 ```dart
@@ -177,7 +178,9 @@ AndroidManifest | android:scheme="mollie"  | android:host="payment-return"| moll
 Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in AppDelegate.swift (see top)| mollie://payment-return
 
 
-**4. Call your api endpoint and send your MollieOrderRequest to your server to retrieve an order object:**
+**4. Call your api endpoint or use the client instance to send your MollieOrderRequest to the server to retrieve an order object:**
+
+For client-server architecture:
 
 ```dart
 
@@ -199,6 +202,26 @@ Info.plist   | URL Schemes -> item0 -> "mollie" | Set up "payment-return" in App
 
     /// Start the checkout process with the browser switch
     Mollie.startPayment(res.checkoutUrl);
+
+  }
+
+```
+
+For calling directly from client. The client.init() function has to be called only once:
+
+```dart
+
+  Future<void> createOrder(MollieOrderRequest order) async{
+
+    client.init("test_TUIAGS980q2ezahdoas");
+
+    var createdOrder = await client.orders.create(order);
+
+    /// set the current order to retrieve this order from other widgets easily with Mollie.getCurrentOrder()
+    Mollie.setCurrentOrder(createdOrder);
+
+    /// Start the checkout process with the browser switch
+    Mollie.startPayment(createdOrder.checkoutUrl);
 
   }
 

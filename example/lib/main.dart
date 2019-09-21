@@ -111,8 +111,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> createOrder(MollieOrderRequest order) async {
     // use this in a new widget with a future builder
 
+    //only client example
     client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
 
+    //Test
     MollieSubscriptionRequest s = new MollieSubscriptionRequest(
       amount: MollieAmount(
         currency: 'EUR',
@@ -137,10 +139,8 @@ class _MyAppState extends State<MyApp> {
     var payment = await client.payments.listPayments();
     print(payment.length);
 
-    //var order2 = await client.subscription.create(s,"cst_zsR82cCtB5");
-    //print(order2.status);
 
-//
+    // client-server example
    //var orderResponse = await http.post(
    //    "http://blackboxshisha.herokuapp.com/mollie/create/order",
    //    headers: {"Content-Type": "application/json"},
