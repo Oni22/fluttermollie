@@ -186,11 +186,8 @@ You’ll be prompted to select a key from a drop-down menu. Scroll to the bottom
 
 
 The MollieCheckout widget works with the client method and the client-server method.
-We will show you both implementations.
-
-If you want to use the client method step over this step an go to "Getting started to use the plugin".
-
-** If you are using client-server architecture **
+We will show you both implementations. If you want to use the client method step over this
+step an go to **"Getting started to use the plugin"**.
 
 If you are using a client-server architecture you have to setup your server first for example with heroku.
 In the following example we will use Node.js with Express.js to do our API calls.
