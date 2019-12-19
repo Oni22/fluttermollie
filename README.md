@@ -13,6 +13,7 @@ Currently supported APIs:
 - Customers API
 - Subscription API
 - Payment API
+- Invoice API (NEW BETA)
 
 
 ## ROADMAP
@@ -20,7 +21,6 @@ Currently supported APIs:
 Adding support for client calls for the following APIs:
 
 - Shipment API
-- Invoice API
 - Chargebacks API
 - Refunds API
 
