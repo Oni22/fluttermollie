@@ -1,3 +1,4 @@
+import 'package:mollie/internal/invoicehandler.dart';
 import 'package:mollie/internal/orderhandler.dart';
 import 'package:mollie/internal/customerhandler.dart';
 import 'package:mollie/internal/subscriptionhandler.dart';
@@ -11,6 +12,7 @@ class MollieClient {
   CustomerHandler customers;
   SubscriptionHandler subscription;
   PaymentHandler payments;
+  InvoiceHandler invoiceHandler;
 
   static final MollieClient _instance = MollieClient._internal();
 
@@ -31,5 +33,6 @@ class MollieClient {
     customers = CustomerHandler(headers);
     subscription = SubscriptionHandler(headers);
     payments = PaymentHandler(headers);
+    invoiceHandler = InvoiceHandler(headers);
   }
 }

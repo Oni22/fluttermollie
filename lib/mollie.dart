@@ -11,6 +11,8 @@ export 'package:mollie/src/molliesubscription.dart';
 export 'package:mollie/src/mollieshipment.dart';
 export 'package:mollie/src/mollieorderline.dart';
 export 'package:mollie/src/molliepayment.dart';
+export 'package:mollie/src/mollieinvoice.dart';
+export 'package:mollie/src/mollieinvoiceline.dart';
 
 import 'package:mollie/src/mollieclient.dart';
 import 'package:mollie/src/mollieorder.dart';
