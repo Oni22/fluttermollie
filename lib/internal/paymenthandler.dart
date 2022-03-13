@@ -17,8 +17,10 @@ class PaymentHandler {
   /// Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
   /// Once you have created a payment, you should redirect your customer to the URL in the _links.checkout property from the response.
   /// To wrap your head around the payment process, an explanation and flow charts can be found in the Payments API Overview.
-  Future<MolliePaymentResponse> create(MolliePaymentRequest payment, String customerId) async {
-    var res = await http.post(Uri.parse(_apiEndpoint), headers: _headers, body: payment.toJson());
+  Future<MolliePaymentResponse> create(
+      MolliePaymentRequest payment, String customerId) async {
+    var res = await http.post(Uri.parse(_apiEndpoint),
+        headers: _headers, body: payment.toJson());
 
     dynamic data = json.decode(res.body);
 
@@ -54,7 +56,8 @@ class PaymentHandler {
   /// This endpoint can be used to update some details of a created payment.
   /// You can update weebhookUrl, redirectUrl, description and metadata
   Future<MolliePaymentResponse> update(String paymentId, Map map) async {
-    var res = await http.patch(Uri.parse(_apiEndpoint + "/" + paymentId), headers: _headers, body: json.encode(map));
+    var res = await http.patch(Uri.parse(_apiEndpoint + "/" + paymentId),
+        headers: _headers, body: json.encode(map));
 
     dynamic data = json.decode(res.body);
 

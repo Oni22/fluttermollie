@@ -33,12 +33,14 @@ class Mollie {
 
   /// Opens the browser to process the payment. Returns after payment is done.
   static Future<void> startPayment(String checkoutUrl) async {
-    return await _channel.invokeMethod('startPayment', {"checkoutUrl": checkoutUrl});
+    return await _channel
+        .invokeMethod('startPayment', {"checkoutUrl": checkoutUrl});
   }
 
   static MollieOrderResponse _currentOrder;
 
   static MollieOrderResponse getCurrentOrder() => _currentOrder;
 
-  static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) => _currentOrder = order;
+  static MollieOrderResponse setCurrentOrder(MollieOrderResponse order) =>
+      _currentOrder = order;
 }

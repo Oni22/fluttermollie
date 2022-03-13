@@ -21,7 +21,8 @@ class CustomerHandler {
 
     dynamic body = json.encode(data);
 
-    var res = await http.post(Uri.parse(_apiEndpoint), headers: _headers, body: body);
+    var res =
+        await http.post(Uri.parse(_apiEndpoint), headers: _headers, body: body);
 
     return MollieCustomer.build(json.decode(res.body));
   }
@@ -37,12 +38,14 @@ class CustomerHandler {
   }
 
   /// Update an existing customer.
-  Future<MollieCustomer> update(String customerId, String name, String email) async {
+  Future<MollieCustomer> update(
+      String customerId, String name, String email) async {
     Map data = {"name": name, "email": email};
 
     dynamic body = json.encode(data);
 
-    var res = await http.patch(Uri.parse(_apiEndpoint + "/" + customerId), headers: _headers, body: body);
+    var res = await http.patch(Uri.parse(_apiEndpoint + "/" + customerId),
+        headers: _headers, body: body);
 
     return MollieCustomer.build(json.decode(res.body));
   }
