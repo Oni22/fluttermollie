@@ -37,7 +37,7 @@ class MollieCheckout extends StatefulWidget {
 }
 
 class _MollieCheckoutState extends State<MollieCheckout> {
-  List<Widget> paymentMethods = new List();
+  List<Widget> paymentMethods = [];
   CheckoutStyle style;
 
   void _setMethod(String method) {
@@ -51,7 +51,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
         "enable": widget.useSofort,
         "method": "sofort",
         "name": "SOFORT",
-        "icon": "assets/icons/klarna-sofort.png"
+        "icon": "assets/icons/klarna-sofort.png",
       },
       {
         "enable": widget.useCredit,
@@ -63,25 +63,25 @@ class _MollieCheckoutState extends State<MollieCheckout> {
         "enable": widget.usePaypal,
         "method": "paypal",
         "name": "PayPal",
-        "icon": "assets/icons/paypal.png"
+        "icon": "assets/icons/paypal.png",
       },
       {
         "enable": widget.useApplePay,
         "method": "applepay",
         "name": "Apple Pay",
-        "icon": "assets/icons/applepay.png"
+        "icon": "assets/icons/applepay.png",
       },
       {
         "enable": widget.useSepa,
         "method": "banktransfer",
         "name": "SEPA",
-        "icon": "assets/icons/sepa.png"
+        "icon": "assets/icons/sepa.png",
       },
       {
         "enable": widget.useIdeal,
         "method": "ideal",
         "name": "iDEAL",
-        "icon": "assets/icons/ideal.png"
+        "icon": "assets/icons/ideal.png",
       }
     ];
 
@@ -92,8 +92,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
               title: Text("Checkout"),
             ),
             buttonColor: Colors.black,
-            textStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
         : widget.style;
 
     for (int i = 0; i < paymentCodes.length; i++) {
@@ -102,8 +101,10 @@ class _MollieCheckoutState extends State<MollieCheckout> {
       if (m["enable"] == true) {
         paymentMethods.add(Container(
             padding: const EdgeInsets.all(5),
-            child: FlatButton(
-                color: style.buttonColor,
+            child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: style.buttonColor,
+                ),
                 onPressed: () {
                   _setMethod(m["method"]);
                 },
@@ -141,9 +142,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Container(
-                  margin: const EdgeInsets.only(bottom: 40, top: 40),
-                  child: Text("Select a payment method.")),
+              Container(margin: const EdgeInsets.only(bottom: 40, top: 40), child: Text("Select a payment method.")),
               Container(
                   child: Column(
                 children: paymentMethods,

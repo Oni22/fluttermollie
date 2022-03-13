@@ -69,20 +69,13 @@ class MollieProductResponse {
     quantity = data["quantity"];
     vatRate = data["vatRate"];
 
-    unitPrice = new MollieAmount(
-        value: data["unitPrice"]["value"],
-        currency: data["unitPrice"]["currency"]);
+    unitPrice = new MollieAmount(value: data["unitPrice"]["value"], currency: data["unitPrice"]["currency"]);
 
-    totalAmount = new MollieAmount(
-        value: data["totalAmount"]["value"],
-        currency: data["totalAmount"]["currency"]);
+    totalAmount = new MollieAmount(value: data["totalAmount"]["value"], currency: data["totalAmount"]["currency"]);
 
-    discountAmount = new MollieAmount(
-        value: data["discountAmount"]["value"],
-        currency: data["discountAmount"]["currency"]);
+    discountAmount =
+        new MollieAmount(value: data["discountAmount"]["value"], currency: data["discountAmount"]["currency"]);
 
-    vatAmount = new MollieAmount(
-        value: data["vatAmount"]["value"],
-        currency: data["vatAmount"]["currency"]);
+    vatAmount = new MollieAmount(value: data["vatAmount"]["value"], currency: data["vatAmount"]["currency"]);
   }
 }

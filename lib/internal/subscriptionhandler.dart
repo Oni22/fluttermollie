@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:mollie/src/molliesubscription.dart';
 
@@ -16,12 +17,9 @@ class SubscriptionHandler {
   /// With subscriptions, you can schedule recurring payments to take place at regular intervals.
   /// For example, by simply specifying an amount and an interval, you can create an endless subscription to charge a monthly fee, until you cancel the subscription.
   /// Or, you could use the times parameter to only charge a limited number of times, for example to split a big transaction in multiple parts.
-  Future<MollieSubscriptionResponse> create(
-      MollieSubscriptionRequest sub, String customerId) async {
-    var res = await http.post(
-        _apiEndpoint + "/" + customerId + "/subscriptions",
-        headers: _headers,
-        body: sub.toJson());
+  Future<MollieSubscriptionResponse> create(MollieSubscriptionRequest sub, String customerId) async {
+    var res = await http.post(Uri.parse(_apiEndpoint + "/" + customerId + "/subscriptions"),
+        headers: _headers, body: sub.toJson());
 
     dynamic data = json.decode(res.body);
 
@@ -29,10 +27,9 @@ class SubscriptionHandler {
   }
 
   /// Retrieve a subscription by its ID and its customer’s ID.
-  Future<MollieSubscriptionResponse> get(
-      String customerId, String subId) async {
+  Future<MollieSubscriptionResponse> get(String customerId, String subId) async {
     var res = await http.get(
-      _apiEndpoint + "/" + customerId + "/subscriptions/" + subId,
+      Uri.parse(_apiEndpoint + "/" + customerId + "/subscriptions/" + subId),
       headers: _headers,
     );
 
@@ -42,10 +39,9 @@ class SubscriptionHandler {
   }
 
   /// A subscription can be canceled any time by calling DELETE on the resource endpoint.
-  Future<MollieSubscriptionResponse> cancel(
-      String customerId, String subId) async {
+  Future<MollieSubscriptionResponse> cancel(String customerId, String subId) async {
     var res = await http.delete(
-      _apiEndpoint + "/" + customerId + "/subscriptions/" + subId,
+      Uri.parse(_apiEndpoint + "/" + customerId + "/subscriptions/" + subId),
       headers: _headers,
     );
 
@@ -56,12 +52,9 @@ class SubscriptionHandler {
 
   /// Some fields of a subscription can be updated by calling PATCH on the resource endpoint. Each field is optional.
   /// You cannot update a canceled subscription.
-  Future<MollieSubscriptionResponse> update(
-      MollieSubscriptionRequest sub, String subId, String customerId) async {
-    var res = await http.patch(
-        _apiEndpoint + "/" + customerId + "/subscriptions/" + subId,
-        headers: _headers,
-        body: sub.toJson());
+  Future<MollieSubscriptionResponse> update(MollieSubscriptionRequest sub, String subId, String customerId) async {
+    var res = await http.patch(Uri.parse(_apiEndpoint + "/" + customerId + "/subscriptions/" + subId),
+        headers: _headers, body: sub.toJson());
 
     dynamic data = json.decode(res.body);
 
@@ -69,20 +62,18 @@ class SubscriptionHandler {
   }
 
   /// Retrieve all subscriptions of a customer.
-  Future<List<MollieSubscriptionResponse>> listSubscriptions(
-      String customerId) async {
+  Future<List<MollieSubscriptionResponse>> listSubscriptions(String customerId) async {
     var res = await http.get(
-      _apiEndpoint + "/" + customerId + "/subscriptions",
+      Uri.parse(_apiEndpoint + "/" + customerId + "/subscriptions"),
       headers: _headers,
     );
 
-    List<MollieSubscriptionResponse> subs = new List();
+    List<MollieSubscriptionResponse> subs = [];
 
     dynamic data = json.decode(res.body);
 
     for (int i = 0; i < data["count"]; i++) {
-      subs.add(MollieSubscriptionResponse.build(
-          data["_embedded"]["subscriptions"][i]));
+      subs.add(MollieSubscriptionResponse.build(data["_embedded"]["subscriptions"][i]));
     }
 
     return subs;

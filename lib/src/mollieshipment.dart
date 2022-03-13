@@ -20,8 +20,7 @@ class MollieShipmentRequest {
   String trackingCode;
   String url;
 
-  MollieShipmentRequest(
-      {this.orderId, this.carrier, this.products, this.trackingCode, this.url});
+  MollieShipmentRequest({this.orderId, this.carrier, this.products, this.trackingCode, this.url});
 
   String toJson() {
     dynamic mappedProducts = products.map((p) => p.toMap()).toList();

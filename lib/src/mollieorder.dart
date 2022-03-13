@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:mollie/src/mollieaddress.dart';
 import 'package:mollie/src/mollieamount.dart';
 import 'package:mollie/src/mollieproduct.dart';
-import 'dart:convert';
 
 class MollieOrderRequest {
   MollieAmount amount;
@@ -33,7 +34,6 @@ class MollieOrderRequest {
     List<dynamic> productMaps = [];
 
     for (MollieProductRequest p in products) {
-      print(p.toMap());
       productMaps.add(p.toMap());
     }
 
@@ -64,7 +64,7 @@ class MollieOrderResponse {
   String redirectUrl;
   String webhookUrl;
   String checkoutUrl;
-  List<MollieProductResponse> products = new List();
+  List<MollieProductResponse> products = [];
   String status;
   String method;
   String orderNumber;
@@ -75,8 +75,7 @@ class MollieOrderResponse {
   MollieOrderResponse.build(dynamic data) {
     id = data["id"];
 
-    amount = MollieAmount(
-        currency: data["amount"]["currency"], value: data["amount"]["value"]);
+    amount = MollieAmount(currency: data["amount"]["currency"], value: data["amount"]["value"]);
 
     shippingAddress = MollieAddress.build(data["shippingAddress"]);
     billingAddress = MollieAddress.build(data["billingAddress"]);

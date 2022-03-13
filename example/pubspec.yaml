@@ -3,14 +3,14 @@ description: Demonstrates how to use the mollie plugin.
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.1
-  webview_flutter: ^2.0.2
-  url_launcher: ^6.0.3
+  http: ^0.13.4
+  webview_flutter: ^3.0.1
+  url_launcher: ^6.0.20
 
 
 

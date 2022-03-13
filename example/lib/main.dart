@@ -1,14 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:mollie/mollie.dart';
 import 'package:http/http.dart' as http;
+import 'package:mollie/mollie.dart';
 
-void main() => runApp(MaterialApp(initialRoute: "home", routes: {
-      "home": (context) => MyApp(),
-      "done": (context) => ShowOrderStatus()
-    }));
+void main() => runApp(
+    MaterialApp(initialRoute: "home", routes: {"home": (context) => MyApp(), "done": (context) => ShowOrderStatus()}));
 
 class MyApp extends StatefulWidget {
   @override
@@ -16,9 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<MolliePaymentResponse> payments;
+
   @override
   void initState() {
     super.initState();
+    //only client example
+    client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
   }
 
   MollieOrderRequest o = new MollieOrderRequest(
@@ -59,8 +61,7 @@ class _MyAppState extends State<MyApp> {
           sku: '5702016116977',
           name: 'LEGO 42083 Bugatti Chiron',
           productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
-          imageUrl:
-              'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
           quantity: 2,
           vatRate: '21.00',
           unitPrice: MollieAmount(
@@ -85,8 +86,7 @@ class _MyAppState extends State<MyApp> {
           sku: '5702016116977',
           name: 'LEGO 42083 Bugatti Chiron',
           productUrl: 'https://shop.lego.com/nl-NL/Bugatti-Chiron-42083',
-          imageUrl:
-              'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
+          imageUrl: 'https://sh-s7-live-s.legocdn.com/is/image//LEGO/42083_alt1?',
           quantity: 2,
           vatRate: '21.00',
           unitPrice: MollieAmount(
@@ -109,11 +109,6 @@ class _MyAppState extends State<MyApp> {
       ]);
 
   Future<void> createOrder(MollieOrderRequest order) async {
-    // use this in a new widget with a future builder
-
-    //only client example
-    client.init('test_HbkjP7PuCPwdveGWG2UffGTdkmd8re');
-
     //Test
     MollieSubscriptionRequest s = new MollieSubscriptionRequest(
       amount: MollieAmount(
@@ -136,30 +131,70 @@ class _MyAppState extends State<MyApp> {
       webhookUrl: 'https://webshop.example.org/payments/webhook/',
     );
 
-    var payment = await client.payments.listPayments();
-    print(payment.length);
-
     // client-server example
-    //var orderResponse = await http.post(
-    //    "http://blackboxshisha.herokuapp.com/mollie/create/order",
-    //    headers: {"Content-Type": "application/json"},
-    //    body: order.toJson());
+    var orderResponse = await http.post(
+      Uri.parse(
+        "http://blackboxshisha.herokuapp.com/mollie/create/order",
+      ),
+      headers: {"Content-Type": "application/json"},
+      body: order.toJson(),
+    );
 
-    //var data = json.decode(orderResponse.body);
-    //MollieOrderResponse res = MollieOrderResponse.build(data);
-
-    //Mollie.setCurrentOrder(res);
-
-    //Mollie.startPayment(res.checkoutUrl);
+    var data = jsonDecode(orderResponse.body);
+    print("RECEIVED DATA FROM BACKEND");
+    print(data);
+    if (data["name"] != "ApiError") {
+      MollieOrderResponse res = MollieOrderResponse.build(data);
+      Mollie.setCurrentOrder(res);
+      Mollie.startPayment(res.checkoutUrl);
+    } else {
+      print("FAILED RESPONSE: ${data["title"]}");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: RaisedButton(onPressed: () {
-          createOrder(null);
-        }),
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    createOrder(o);
+                  },
+                  child: Text("Create order"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    listPayments();
+                  },
+                  child: Text("List payments"),
+                ),
+              ],
+            ),
+            if (payments != null)
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: payments.length,
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(payments[index].description),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("${payments[index].amount.currency}${payments[index].amount.value}"),
+                        Text("${payments[index].createdAt}"),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
     /*MollieCheckout(
@@ -174,6 +209,11 @@ class _MyAppState extends State<MyApp> {
       useSepa: true,
       useIdeal: true,
     );*/
+  }
+
+  void listPayments() async {
+    payments = await client.payments.listPayments();
+    setState(() {});
   }
 }
 

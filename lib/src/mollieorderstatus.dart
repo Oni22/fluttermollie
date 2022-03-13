@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mollie/src/mollieorder.dart';
 import 'package:intl/intl.dart';
-
+import 'package:mollie/src/mollieorder.dart';
 import 'package:mollie/src/mollieproduct.dart';
 
 /// Builds a list view of all orders
@@ -34,7 +33,7 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
         statusIndex = 3;
     }
 
-    List<Widget> container = new List();
+    List<Widget> container = [];
 
     for (int i = 0; i < orderStatus.length; i++) {
       container.add(Expanded(
@@ -74,8 +73,7 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
           itemBuilder: (context, index) {
             MollieOrderResponse o = widget.orders[index];
 
-            DateTime date = new DateTime.fromMillisecondsSinceEpoch(
-                DateTime.parse(o.createdAt).millisecondsSinceEpoch);
+            DateTime date = new DateTime.fromMillisecondsSinceEpoch(DateTime.parse(o.createdAt).millisecondsSinceEpoch);
             var formatter = new DateFormat("dd.MM.yyyy");
             String formattedDate = formatter.format(date);
 
@@ -93,13 +91,9 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                   padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width,
                   child: Container(
-                      decoration:
-                          BoxDecoration(color: Colors.white, boxShadow: [
+                      decoration: BoxDecoration(color: Colors.white, boxShadow: [
                         BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 1,
-                            spreadRadius: 2,
-                            offset: Offset(1, 1))
+                            color: Colors.black.withOpacity(0.2), blurRadius: 1, spreadRadius: 2, offset: Offset(1, 1))
                       ]),
                       width: MediaQuery.of(context).size.width,
                       height: 140,
@@ -113,13 +107,11 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                                   Container(
                                       margin: const EdgeInsets.only(right: 15),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             "Order No",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontWeight: FontWeight.bold),
                                           ),
                                           Text(o.orderNumber)
                                         ],
@@ -127,13 +119,11 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                                   Container(
                                       margin: const EdgeInsets.only(right: 15),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             "Amount",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontWeight: FontWeight.bold),
                                           ),
                                           Text(o.amount.value)
                                         ],
@@ -141,13 +131,11 @@ class _MollieOrderStatusState extends State<MollieOrderStatus> {
                                   Container(
                                       margin: const EdgeInsets.only(right: 15),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             "Items",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(fontWeight: FontWeight.bold),
                                           ),
                                           Text(items.toString())
                                         ],
