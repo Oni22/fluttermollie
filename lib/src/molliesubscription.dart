@@ -8,12 +8,7 @@ class MollieSubscriptionRequest {
   String description;
   String webhookUrl;
 
-  MollieSubscriptionRequest(
-      {this.amount,
-      this.interval,
-      this.description,
-      this.webhookUrl,
-      this.times});
+  MollieSubscriptionRequest({this.amount, this.interval, this.description, this.webhookUrl, this.times});
 
   String toJson() {
     return json.encode({
@@ -51,8 +46,7 @@ class MollieSubscriptionResponse {
     mode = data["mode"];
     createdAt = data["createdAt"];
     status = data["status"];
-    amount = MollieAmount(
-        value: data["amount"]["value"], currency: data["amount"]["currency"]);
+    amount = MollieAmount(value: data["amount"]["value"], currency: data["amount"]["currency"]);
     value = data["value"];
     times = data["times"];
     timesRemaining = data["timesRemaining"];

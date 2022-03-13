@@ -7,15 +7,9 @@ class MollieOrderLine {
   String productUrl;
   String imageUrl;
 
-  MollieOrderLine(
-      {this.orderId,
-      this.orderLineId,
-      this.name,
-      this.imageUrl,
-      this.productUrl});
+  MollieOrderLine({this.orderId, this.orderLineId, this.name, this.imageUrl, this.productUrl});
 
   String toJson() {
-    return json
-        .encode({"name": name, "productUrl": productUrl, "imageUrl": imageUrl});
+    return json.encode({"name": name, "productUrl": productUrl, "imageUrl": imageUrl});
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:mollie/src/mollieamount.dart';
+import 'package:mollie/src/molliedetails.dart';
 
 class MolliePaymentRequest {
   MollieAmount amount;
@@ -8,12 +10,7 @@ class MolliePaymentRequest {
   String redirectUrl;
   dynamic metaData;
 
-  MolliePaymentRequest(
-      {this.amount,
-      this.redirectUrl,
-      this.description,
-      this.webhookUrl,
-      this.metaData});
+  MolliePaymentRequest({this.amount, this.redirectUrl, this.description, this.webhookUrl, this.metaData});
 
   String toJson() {
     return json.encode({
@@ -34,7 +31,7 @@ class MolliePaymentResponse {
   MollieAmount amount;
   bool isCancelable;
   String sequenceType;
-  String details;
+  MollieDetails details;
   String profileId;
   String description;
   String method;
@@ -52,9 +49,8 @@ class MolliePaymentResponse {
     isCancelable = data["isCancelable"];
     createdAt = data["createdAt"];
     status = data["status"];
-    amount = MollieAmount(
-        value: data["amount"]["value"], currency: data["amount"]["currency"]);
-    details = data["details"];
+    amount = MollieAmount(value: data["amount"]["value"], currency: data["amount"]["currency"]);
+    details = MollieDetails.fromMap(data["details"] ?? {});
     sequenceType = data["sequenceType"];
     metaData = data["metaData"];
     description = data["description"];
@@ -62,11 +58,9 @@ class MolliePaymentResponse {
     method = data["method"];
     webhookUrl = data["weebhookUrl"];
 
-    if (data["_links"].containsKey("checkout"))
-      checkoutUrl = data["_links"]["checkout"]["href"];
+    if (data["_links"].containsKey("checkout")) checkoutUrl = data["_links"]["checkout"]["href"];
 
-    if (data["_links"].containsKey("documentation"))
-      documentationUrl = data["_links"]["documentation"]["href"];
+    if (data["_links"].containsKey("documentation")) documentationUrl = data["_links"]["documentation"]["href"];
 
     selfUrl = data["_links"]["self"]["href"];
   }

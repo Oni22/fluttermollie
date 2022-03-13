@@ -5,7 +5,6 @@ import 'package:mollie/internal/subscriptionhandler.dart';
 import 'package:mollie/internal/paymenthandler.dart';
 
 class MollieClient {
-  String _apiKey;
   var headers;
 
   OrderHandler orders;
@@ -22,8 +21,6 @@ class MollieClient {
 
   /// Sets the api key
   void init(String apiKey) {
-    _apiKey = apiKey;
-
     headers = {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + apiKey,
